@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C909无人行李车运送系统 - UI原型展示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+            color: #1e293b;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 悬浮切换按钮 */
+        .floating-tabs {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            transform: scale(0.75);
+            transform-origin: bottom right;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 12px 20px;
+            border-radius: 50px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            gap: 8px;
+            cursor: move;
+        }
+
+        .floating-tab-btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 25px;
+            background: transparent;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .floating-tab-btn::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+
+        .floating-tab-btn:hover {
+            color: #3b82f6;
+        }
+
+        .floating-tab-btn:hover::before {
+            width: 80%;
+        }
+
+        .floating-tab-btn.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .floating-tab-btn.active::before {
+            display: none;
+        }
+
+        .tab-content {
+            display: none;
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* iPhone 15 Pro Max 样式 - 430 x 932 px */
+        .iphone-container {
+            width: 100%;
+            max-width: 430px;
+            min-height: 100vh;
+            margin: 0 auto;
+            background: #f8fafc;
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .iphone-screen {
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 0;
+            overflow: hidden;
+            flex: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .iphone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 126px;
+            height: 37px;
+            background: #f8fafc;
+            border-radius: 0 0 20px 20px;
+            z-index: 10;
+            display: none;
+        }
+
+        .iphone-status-bar {
+            background: transparent;
+            padding: 15px 30px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e293b;
+            position: relative;
+            z-index: 5;
+        }
+
+        .iphone-header {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            padding: 20px 24px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
+        }
+
+        .iphone-header h2 {
+            font-size: 20px;
+            color: white;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .iphone-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: white;
+            padding: 10px 0 20px;
+            border-top: 1px solid #e2e8f0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #94a3b8;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 16px;
+            min-width: 60px;
+        }
+
+        .nav-item.active {
+            color: #3b82f6;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+
+        .nav-item span:first-child {
+            font-size: 26px;
+            line-height: 1;
+        }
+
+        .nav-item span:last-child {
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        .phone-content {
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 100px;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 14px 20px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            color: #1e293b;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+
+        .filter-btn {
+            padding: 14px 20px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            color: #64748b;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-btn:hover {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .flight-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .flight-card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.15);
+        }
+
+        .flight-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .flight-number {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1e293b;
+            letter-spacing: 0.5px;
+        }
+
+        .flight-gate {
+            padding: 4px 10px;
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .flight-info {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .flight-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 12px;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .status-pending {
+            background: #f59e0b;
+            color: #f59e0b;
+        }
+
+        .status-transporting {
+            background: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .status-completed {
+            background: #22c55e;
+            color: #22c55e;
+        }
+
+        .status-warning {
+            background: #ef4444;
+            color: #ef4444;
+        }
+
+        .status-flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 20px 0;
+        }
+
+        .status-node {
+            padding: 10px 16px;
+            background: white;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #94a3b8;
+            border: 2px solid #e2e8f0;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .status-node.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .status-chip {
+            padding: 10px 20px;
+            background: #f1f5f9;
+            color: #64748b;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .status-chip.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-action-primary {
+            flex: 1;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-action-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-action-secondary {
+            flex: 1;
+            background: #f1f5f9;
+            color: #64748b;
+            border: none;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-action-secondary:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        .vehicle-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 16px 12px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .vehicle-btn span:first-child {
+            font-size: 24px;
+        }
+
+        .vehicle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .vehicle-btn.warning {
+            border-color: #f59e0b;
+            color: #f59e0b;
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        .vehicle-btn.success {
+            border-color: #22c55e;
+            color: #22c55e;
+            background: rgba(34, 197, 94, 0.05);
+        }
+
+        .vehicle-btn.danger {
+            border-color: #ef4444;
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .message-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background: white;
+            padding: 16px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .message-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .message-content {
+            flex: 1;
+            font-size: 14px;
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+
+        .message-item.warning {
+            border-left: 4px solid #f59e0b;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 24px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 24px;
+            padding-bottom: 24px;
+        }
+
+        .timeline-item.last {
+            padding-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -24px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            border: 3px solid #e2e8f0;
+        }
+
+        .timeline-item.completed .timeline-dot {
+            background: #22c55e;
+            border-color: rgba(34, 197, 94, 0.2);
+        }
+
+        .timeline-item.active .timeline-dot {
+            background: #3b82f6;
+            border-color: rgba(59, 130, 246, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5);
+            }
+            70% {
+                box-shadow: 0 0 0 8px rgba(59, 130, 246, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+            }
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: -18px;
+            top: 20px;
+            width: 2px;
+            height: calc(100% + 8px);
+            background: #e2e8f0;
+        }
+
+        .timeline-item.completed .timeline-line {
+            background: linear-gradient(180deg, #22c55e 0%, #e2e8f0 100%);
+        }
+
+        .timeline-item.active .timeline-line {
+            background: linear-gradient(180deg, #3b82f6 0%, #e2e8f0 100%);
+        }
+
+        .timeline-item.last .timeline-line {
+            display: none;
+        }
+
+        .timeline-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .timeline-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .timeline-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        .timeline-item.completed .timeline-title,
+        .timeline-item.active .timeline-title {
+            color: #1e293b;
+        }
+
+        .timeline-time {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 4px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .timeline-item.completed .timeline-time,
+        .timeline-item.active .timeline-time {
+            color: #22c55e;
+        }
+
+        .timeline-desc {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        .timeline-item.active .timeline-desc {
+            color: #64748b;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 15px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 12px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #64748b;
+            border: 2px solid #e2e8f0;
+            padding: 16px 32px;
+            border-radius: 15px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
+        }
+
+        .map-area {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            min-height: 200px;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .map-dot {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .map-dot.idle {
+            background: #22c55e;
+        }
+
+        .map-dot.working {
+            background: #3b82f6;
+        }
+
+        .map-dot.charging {
+            background: #f59e0b;
+        }
+
+        .map-label {
+            position: absolute;
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 600;
+            white-space: nowrap;
+            background: white;
+            padding: 4px 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .message-item {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 4px solid #3b82f6;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .message-item:hover {
+            transform: translateX(4px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .message-item.warning {
+            border-left-color: #ef4444;
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+        }
+
+        .message-content {
+            font-size: 14px;
+            color: #1e293b;
+            font-weight: 500;
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 6px;
+        }
+
+        /* 电脑端样式 - 参考机器人管理系统布局 */
+        .desktop-container {
+            width: 100%;
+            height: 100%;
+            background: #f8f9fa;
+            border-radius: 0;
+            box-shadow: none;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .desktop-header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .desktop-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            letter-spacing: 0.3px;
+        }
+
+        .desktop-info {
+            font-size: 14px;
+            color: #666666;
+            font-weight: 500;
+        }
+
+        .desktop-body {
+            display: flex;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .desktop-sidebar {
+            width: 250px;
+            background: #2c3e50;
+            padding: 0;
+            border-right: none;
+            position: relative;
+        }
+
+        .sidebar-item {
+            padding: 12px 20px 12px 50px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+            margin: 0;
+        }
+
+        .sidebar-item.active {
+            background: #3498db;
+            color: white;
+            border-left-color: #3498db;
+        }
+
+        .sidebar-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .desktop-main {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .monitor-map {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 32px;
+            min-height: 400px;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .map-building {
+            position: absolute;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .map-carousel {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+
+        .map-aircraft {
+            position: absolute;
+            font-size: 40px;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-value {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #64748b;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .data-table th, .data-table td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .data-table th {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .data-table td {
+            color: #1e293b;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .table-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 8px;
+            transition: all 0.3s;
+        }
+
+        .table-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .table-btn.danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        /* iPad 样式 - 横屏 1366 x 1024 px */
+        .ipad-container {
+            width: 100%;
+            max-width: 1366px;
+            height: 100%;
+            max-height: 1024px;
+            background: #1a1a1a;
+            border-radius: 40px;
+            padding: 20px;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ipad-screen {
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 32px;
+            overflow: hidden;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ipad-header {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            padding: 24px 32px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.2);
+        }
+
+        .ipad-header h2 {
+            font-size: 24px;
+            color: white;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .ipad-body {
+            padding: 32px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .agv-status-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .agv-card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s;
+        }
+
+        .agv-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .agv-card-label {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .agv-card-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: #1e293b;
+        }
+
+        .agv-card-value.warning {
+            color: #f59e0b;
+        }
+
+        .agv-card-value.success {
+            color: #22c55e;
+        }
+
+        .control-panel {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .control-title {
+            font-size: 18px;
+            color: #64748b;
+            margin-bottom: 32px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .direction-pad {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .dir-btn {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border: none;
+            border-radius: 20px;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .dir-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .dir-btn-row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .action-btn {
+            padding: 20px 40px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            color: #64748b;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .action-btn:hover {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .emergency-btn {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            padding: 24px 60px;
+            font-size: 18px;
+            font-weight: 700;
+            box-shadow: 0 8px 30px rgba(239, 68, 68, 0.4);
+        }
+
+        .emergency-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px rgba(239, 68, 68, 0.5);
+        }
+
+        .docking-view {
+            background: white;
+            border-radius: 24px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .camera-feed {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 16px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .docking-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .docking-distance {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .docking-status {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #22c55e;
+        }
+
+        .fine-adjust {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .fine-adjust-title {
+            font-size: 16px;
+            color: #64748b;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .floating-tabs {
+                flex-wrap: wrap;
+                justify-content: center;
+                max-width: 90%;
+                transform: scale(0.9);
+            }
+            
+            .iphone-container {
+                max-width: 100%;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            
+            .iphone-screen {
+                border-radius: 0;
+            }
+            
+            .iphone-notch {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-tabs">
+        <button class="floating-tab-btn active" onclick="switchTab('app-tab')">APP端</button>
+        <button class="floating-tab-btn" onclick="switchTab('desktop-tab')">中台电脑端</button>
+        <button class="floating-tab-btn" onclick="switchTab('agv-tab')">AGV车载屏端</button>
+    </div>
+
+    <div class="container">
+        <!-- APP端 - iPhone 15 Pro Max -->
+        <div id="app-tab" class="tab-content active">
+            <div class="iphone-container">
+                <div class="iphone-screen">
+                    <div class="iphone-notch"></div>
+                    <div class="iphone-status-bar">
+                        <span>9:30</span>
+                        <span>5G</span>
+                    </div>
+                    <div class="iphone-header">
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 12px;">
+                                <span style="font-size: 22px;">✈️</span>
+                                <span style="font-size: 18px; color: white; font-weight: 700; letter-spacing: 0.5px;">C909无人行李车系统</span>
+                            </div>
+                        </div>
+                    
+                    <div class="phone-content" id="appContent">
+                        <div id="flightPage">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                                <h3 style="color: #1e293b; font-size: 20px; font-weight: 700;">航班列表</h3>
+                                <span style="color: #3b82f6; font-size: 14px; font-weight: 600;">全部</span>
+                            </div>
+                            <div class="search-bar">
+                                <input type="text" class="search-input" placeholder="搜索航班号">
+                                <button class="filter-btn">筛选</button>
+                            </div>
+                            
+                            <div class="flight-card" onclick="showTaskDetail()">
+                                <div class="flight-header">
+                                    <div class="flight-number">MU5101</div>
+                                    <span class="flight-gate">机位: A12</span>
+                                </div>
+                                <div class="flight-info">目的地: 北京首都</div>
+                                <div class="flight-info">计划起飞: 09:30</div>
+                                <div class="flight-info">行李转盘: #3</div>
+                                <div class="flight-status">
+                                    <span class="status-dot status-pending"></span>
+                                    <span>待下机</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-card">
+                                <div class="flight-header">
+                                    <div class="flight-number">CZ3288</div>
+                                    <span class="flight-gate">机位: B08</span>
+                                </div>
+                                <div class="flight-info">目的地: 上海浦东</div>
+                                <div class="flight-info">计划起飞: 10:15</div>
+                                <div class="flight-info">行李转盘: #5</div>
+                                <div class="flight-status">
+                                    <span class="status-dot status-transporting"></span>
+                                    <span>待上机</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-card">
+                                <div class="flight-header">
+                                    <div class="flight-number">HU7890</div>
+                                    <span class="flight-gate">机位: C15</span>
+                                </div>
+                                <div class="flight-info">来源地: 广州白云</div>
+                                <div class="flight-info">计划到达: 11:00</div>
+                                <div class="flight-info">行李转盘: #2</div>
+                                <div class="flight-status">
+                                    <span class="status-dot status-completed"></span>
+                                    <span>已完成</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="taskPage" style="display: none;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                                <span style="cursor: pointer; color: #3b82f6; font-weight: 600; font-size: 16px;" onclick="showFlightPage()">← 返回</span>
+                                <h3 style="color: #1e293b; font-size: 20px; font-weight: 700;">任务详情 - MU5101</h3>
+                            </div>
+                            
+                            <div style="background: white; border-radius: 20px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
+                                <div style="font-size: 15px; color: #64748b; margin-bottom: 8px; font-weight: 600;">配送类型: <span style="color: #1e293b; font-weight: 700;">行李下机</span></div>
+                                <div style="font-size: 15px; color: #64748b; margin-bottom: 8px; font-weight: 600;">目标位置: <span style="color: #1e293b; font-weight: 700;">行李转盘 #3</span></div>
+                                <div style="font-size: 15px; color: #64748b; margin-bottom: 8px; font-weight: 600;">行李数量: <span style="color: #1e293b; font-weight: 700;">120 件</span></div>
+                                <div style="font-size: 15px; color: #64748b; font-weight: 600;">分配车辆: <span style="color: #3b82f6; font-weight: 700;">AGV-003</span></div>
+                            </div>
+                            
+                            <div style="margin-bottom: 24px; background: white; border-radius: 20px; padding: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
+                                <div style="font-size: 14px; color: #64748b; margin-bottom: 20px; font-weight: 600;">任务状态流转</div>
+                                <div class="timeline">
+                                    <div class="timeline-item completed">
+                                        <div class="timeline-dot"></div>
+                                        <div class="timeline-line"></div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-info">
+                                                <div class="timeline-title">待接单</div>
+                                                <div class="timeline-desc">系统创建任务</div>
+                                            </div>
+                                            <div class="timeline-time">09:25:00</div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item completed">
+                                        <div class="timeline-dot"></div>
+                                        <div class="timeline-line"></div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-info">
+                                                <div class="timeline-title">已接单</div>
+                                                <div class="timeline-desc">AGV-003 接受任务</div>
+                                            </div>
+                                            <div class="timeline-time">09:26:30</div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item completed">
+                                        <div class="timeline-dot"></div>
+                                        <div class="timeline-line"></div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-info">
+                                                <div class="timeline-title">已到达</div>
+                                                <div class="timeline-desc">到达机位 A12</div>
+                                            </div>
+                                            <div class="timeline-time">09:28:45</div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item active">
+                                        <div class="timeline-dot"></div>
+                                        <div class="timeline-line"></div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-info">
+                                                <div class="timeline-title">装载中</div>
+                                                <div class="timeline-desc">正在装载行李 (85/120)</div>
+                                            </div>
+                                            <div class="timeline-time">09:30:00</div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot"></div>
+                                        <div class="timeline-line"></div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-info">
+                                                <div class="timeline-title">配送中</div>
+                                                <div class="timeline-desc">等待装载完成</div>
+                                            </div>
+                                            <div class="timeline-time">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot"></div>
+                                        <div class="timeline-line"></div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-info">
+                                                <div class="timeline-title">已送达</div>
+                                                <div class="timeline-desc">等待配送</div>
+                                            </div>
+                                            <div class="timeline-time">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item last">
+                                        <div class="timeline-dot"></div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-info">
+                                                <div class="timeline-title">已完成</div>
+                                                <div class="timeline-desc">等待送达</div>
+                                            </div>
+                                            <div class="timeline-time">-</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="flex: 1;"></div>
+                            
+                            <div style="display: flex; gap: 12px; padding-bottom: 20px;">
+                                <button class="btn-action-primary">确认装载完成</button>
+                                <button class="btn-action-secondary">取消任务</button>
+                            </div>
+                        </div>
+
+                        <div id="vehiclePage" style="display: none;">
+                            <h3 style="color: #1e293b; font-size: 20px; font-weight: 700; margin-bottom: 20px;">车辆状态监控</h3>
+                            
+                            <div style="background: white; border-radius: 20px; padding: 16px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
+                                <div style="display: flex; gap: 12px;">
+                                    <input type="text" placeholder="搜索车辆编号" style="flex: 1; padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 14px; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='#3b82f6'" onblur="this.style.borderColor='#e2e8f0'">
+                                    <button style="padding: 12px 24px; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; border: none; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: transform 0.2s;" onclick="this.style.transform='scale(0.98)'; setTimeout(()=>this.style.transform='scale(1)', 100)">查询</button>
+                                </div>
+                            </div>
+                            
+                            <div class="map-area">
+                                <span style="font-size: 14px; color: #64748b; font-weight: 600;">机场区域</span>
+                                <div class="map-dot idle" style="top: 50px; left: 80px;"></div>
+                                <div class="map-label" style="top: 70px; left: 65px;">AGV-001</div>
+                                <div class="map-dot working" style="top: 100px; left: 160px;"></div>
+                                <div class="map-label" style="top: 120px; left: 145px;">AGV-002</div>
+                                <div class="map-dot charging" style="top: 60px; left: 240px;"></div>
+                                <div class="map-label" style="top: 80px; left: 225px;">AGV-003</div>
+                            </div>
+                            
+                            <div style="background: white; border-radius: 20px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                                    <div style="font-size: 18px; font-weight: 700; color: #1e293b;">AGV-002</div>
+                                    <span style="padding: 4px 12px; background: rgba(59, 130, 246, 0.1); color: #3b82f6; border-radius: 20px; font-size: 12px; font-weight: 600;">运输中</span>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                    <div style="background: #f8fafc; border-radius: 12px; padding: 12px;">
+                                        <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">电量</div>
+                                        <div style="font-size: 18px; font-weight: 700; color: #22c55e;">75%</div>
+                                    </div>
+                                    <div style="background: #f8fafc; border-radius: 12px; padding: 12px;">
+                                        <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">当前任务</div>
+                                        <div style="font-size: 12px; font-weight: 600; color: #1e293b;">MU5101 行李下机</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+                                <button class="vehicle-btn" onclick="showActionFeedback('鸣笛')">
+                                    <span>🔊</span>
+                                    <span>鸣笛</span>
+                                </button>
+                                <button class="vehicle-btn" onclick="showActionFeedback('开灯')">
+                                    <span>💡</span>
+                                    <span>开灯</span>
+                                </button>
+                                <button class="vehicle-btn" onclick="showActionFeedback('刹车')">
+                                    <span>🛑</span>
+                                    <span>刹车</span>
+                                </button>
+                                <button class="vehicle-btn warning" onclick="showActionFeedback('暂停')">
+                                    <span>⏸️</span>
+                                    <span>暂停</span>
+                                </button>
+                                <button class="vehicle-btn success" onclick="showActionFeedback('继续')">
+                                    <span>▶️</span>
+                                    <span>继续</span>
+                                </button>
+                                <button class="vehicle-btn danger" onclick="showActionFeedback('急停')">
+                                    <span>⚠️</span>
+                                    <span>急停</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="messagePage" style="display: none;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                                <h3 style="color: #1e293b; font-size: 20px; font-weight: 700;">消息通知</h3>
+                                <button style="padding: 8px 16px; background: rgba(239, 68, 68, 0.1); color: #ef4444; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s;" onclick="clearAllMessages()">清空全部</button>
+                            </div>
+                            
+                            <div id="messageList">
+                                <div class="message-item">
+                                    <div class="message-icon">📦</div>
+                                    <div class="message-content">AGV-003 已到达行李转盘 #3</div>
+                                    <div class="message-time">2分钟前</div>
+                                </div>
+                                
+                                <div class="message-item">
+                                    <div class="message-icon">📋</div>
+                                    <div class="message-content">任务 MU5101 状态已更新为"装载中"</div>
+                                    <div class="message-time">5分钟前</div>
+                                </div>
+                                
+                                <div class="message-item warning">
+                                    <div class="message-icon">⚠️</div>
+                                    <div class="message-content">AGV-001 电量低于20%，需充电</div>
+                                    <div class="message-time">10分钟前</div>
+                                </div>
+                                
+                                <div class="message-item warning">
+                                    <div class="message-icon">🚧</div>
+                                    <div class="message-content">AGV-002 路径受阻，请处理</div>
+                                    <div class="message-time">15分钟前</div>
+                                </div>
+                            </div>
+                            
+                            <div id="emptyMessage" style="display: none; text-align: center; padding: 60px 20px;">
+                                <div style="font-size: 48px; margin-bottom: 16px;">📭</div>
+                                <p style="color: #94a3b8; font-size: 16px;">暂无消息</p>
+                            </div>
+                        </div>
+
+                        <div id="profilePage" style="display: none;">
+                            <div style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); border-radius: 0 0 30px 30px; padding: 40px 20px 30px; margin: 0 -20px 20px;">
+                                <div style="display: flex; align-items: center; gap: 16px;">
+                                    <div style="width: 70px; height: 70px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; font-size: 32px;">👤</div>
+                                    <div>
+                                        <h3 style="color: white; font-size: 20px; font-weight: 700;">管理员张三</h3>
+                                        <p style="color: rgba(255, 255, 255, 0.8); font-size: 14px;">工号: ADMIN001</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; border-radius: 20px; padding: 0; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
+                                <div style="display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background 0.3s;">
+                                    <span style="font-size: 22px; margin-right: 16px;">📊</span>
+                                    <span style="flex: 1; color: #1e293b; font-weight: 600;">我的统计</span>
+                                    <span style="color: #94a3b8;">→</span>
+                                </div>
+                                <div style="display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background 0.3s;">
+                                    <span style="font-size: 22px; margin-right: 16px;">✅</span>
+                                    <span style="flex: 1; color: #1e293b; font-weight: 600;">已完成任务</span>
+                                    <span style="color: #22c55e; font-weight: 700;">128</span>
+                                </div>
+                                <div style="display: flex; align-items: center; padding: 16px 20px; cursor: pointer; transition: background 0.3s;">
+                                    <span style="font-size: 22px; margin-right: 16px;">⏱️</span>
+                                    <span style="flex: 1; color: #1e293b; font-weight: 600;">在线时长</span>
+                                    <span style="color: #3b82f6; font-weight: 700;">8h 30m</span>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; border-radius: 20px; padding: 0; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
+                                <div style="display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background 0.3s;">
+                                    <span style="font-size: 22px; margin-right: 16px;">🔔</span>
+                                    <span style="flex: 1; color: #1e293b; font-weight: 600;">通知设置</span>
+                                    <span style="color: #94a3b8;">→</span>
+                                </div>
+                                <div style="display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background 0.3s;">
+                                    <span style="font-size: 22px; margin-right: 16px;">🌙</span>
+                                    <span style="flex: 1; color: #1e293b; font-weight: 600;">深色模式</span>
+                                    <span style="color: #94a3b8;">→</span>
+                                </div>
+                                <div style="display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background 0.3s;">
+                                    <span style="font-size: 22px; margin-right: 16px;">🔒</span>
+                                    <span style="flex: 1; color: #1e293b; font-weight: 600;">修改密码</span>
+                                    <span style="color: #94a3b8;">→</span>
+                                </div>
+                                <div style="display: flex; align-items: center; padding: 16px 20px; cursor: pointer; transition: background 0.3s;">
+                                    <span style="font-size: 22px; margin-right: 16px;">❓</span>
+                                    <span style="flex: 1; color: #1e293b; font-weight: 600;">帮助中心</span>
+                                    <span style="color: #94a3b8;">→</span>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; border-radius: 20px; padding: 0; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
+                                <div style="display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background 0.3s;">
+                                    <span style="font-size: 22px; margin-right: 16px;">📱</span>
+                                    <span style="flex: 1; color: #1e293b; font-weight: 600;">关于系统</span>
+                                    <span style="color: #94a3b8;">→</span>
+                                </div>
+                                <div style="display: flex; align-items: center; padding: 16px 20px; cursor: pointer; transition: background 0.3s;">
+                                    <span style="font-size: 22px; margin-right: 16px;">🚪</span>
+                                    <span style="flex: 1; color: #ef4444; font-weight: 600;">退出登录</span>
+                                </div>
+                            </div>
+                            
+                            <p style="text-align: center; color: #94a3b8; font-size: 12px; margin-top: 20px;">C909无人行李车系统 v1.0.0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="iphone-nav">
+                        <div class="nav-item active" onclick="showFlightPage()">
+                            <span>🏠</span>
+                            <span>首页</span>
+                        </div>
+                        <div class="nav-item" onclick="showTaskDetail()">
+                            <span>📋</span>
+                            <span>任务</span>
+                        </div>
+                        <div class="nav-item" onclick="showVehiclePage()">
+                            <span>🚗</span>
+                            <span>车辆</span>
+                        </div>
+                        <div class="nav-item" onclick="showMessagePage()">
+                            <span>🔔</span>
+                            <span>消息</span>
+                        </div>
+                        <div class="nav-item" onclick="showProfilePage()">
+                            <span>👤</span>
+                            <span>我的</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 中台电脑端 -->
+        <div id="desktop-tab" class="tab-content">
+            <div class="desktop-container">
+                <div class="desktop-header">
+                    <div class="desktop-title">C909无人行李车调度中心</div>
+                    <div class="desktop-info">日期: 2026-05-18 | 时间: 09:30:00 | 值班人员: 张三</div>
+                </div>
+                
+                <div class="desktop-body">
+                    <div class="desktop-sidebar">
+                        <div style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <h1 style="color: white; font-size: 14px; font-weight: 600; line-height: 1.4;">C909无人行李车<br/>调度中心</h1>
+                        </div>
+                        <div style="padding: 4px 0;">
+                            <div class="sidebar-item active" onclick="showDesktopPanel('monitor')">大屏监控</div>
+                            <div class="sidebar-item" onclick="showDesktopPanel('vehicle')">车辆管理</div>
+                            <div class="sidebar-item" onclick="showDesktopPanel('task')">任务调度</div>
+                            <div class="sidebar-item" onclick="showDesktopPanel('config')">系统配置</div>
+                        </div>
+                        <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            <p style="color: rgba(255, 255, 255, 0.5); font-size: 12px;">版本 1.0.0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="desktop-main" id="desktopMain">
+                        <div id="monitorPanel">
+                            <h3 style="color: #1e293b; font-size: 24px; font-weight: 700; margin-bottom: 24px;">实时监控</h3>
+                            
+                            <div class="monitor-map">
+                                <div class="map-building" style="top: 30px; left: 30px; width: 120px; height: 90px;">航站楼</div>
+                                <div class="map-carousel" style="top: 150px; left: 80px;">#1</div>
+                                <div class="map-carousel" style="top: 150px; left: 220px;">#2</div>
+                                <div class="map-carousel" style="top: 150px; left: 360px;">#3</div>
+                                <div class="map-aircraft" style="top: 80px; left: 600px;">✈️</div>
+                                
+                                <div class="map-dot working" style="top: 120px; left: 270px;"></div>
+                                <div class="map-label" style="top: 140px; left: 250px;">AGV-002</div>
+                                <div class="map-dot idle" style="top: 90px; left: 450px;"></div>
+                                <div class="map-label" style="top: 110px; left: 430px;">AGV-001</div>
+                            </div>
+                            
+                            <div class="stats-row">
+                                <div class="stat-card">
+                                    <div class="stat-value">8/10</div>
+                                    <div class="stat-label">在线车辆</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">12</div>
+                                    <div class="stat-label">运行任务</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">2</div>
+                                    <div class="stat-label">异常报警</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">156</div>
+                                    <div class="stat-label">今日完成</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="vehiclePanel" style="display: none;">
+                            <div style="display: flex; gap: 12px; margin-bottom: 24px;">
+                                <button class="filter-btn" style="padding: 12px 24px; font-size: 14px;">全部车辆</button>
+                                <button class="filter-btn" style="padding: 12px 24px; font-size: 14px; background: #3b82f6; color: white; border-color: #3b82f6;">空闲车辆</button>
+                                <button class="filter-btn" style="padding: 12px 24px; font-size: 14px;">故障车辆</button>
+                            </div>
+                            
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>车辆ID</th>
+                                        <th>状态</th>
+                                        <th>电量</th>
+                                        <th>累计里程</th>
+                                        <th>累计次数</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>AGV-001</td>
+                                        <td><span style="color: #22c55e; font-weight: 700;">空闲</span></td>
+                                        <td>85%</td>
+                                        <td>1250km</td>
+                                        <td>3250</td>
+                                        <td>
+                                            <button class="table-btn">详情</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>AGV-002</td>
+                                        <td><span style="color: #3b82f6; font-weight: 700;">运输中</span></td>
+                                        <td>70%</td>
+                                        <td>1890km</td>
+                                        <td>4120</td>
+                                        <td>
+                                            <button class="table-btn">详情</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>AGV-003</td>
+                                        <td><span style="color: #f59e0b; font-weight: 700;">充电</span></td>
+                                        <td>25%</td>
+                                        <td>2100km</td>
+                                        <td>5080</td>
+                                        <td>
+                                            <button class="table-btn">详情</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>AGV-004</td>
+                                        <td><span style="color: #ef4444; font-weight: 700;">故障</span></td>
+                                        <td>45%</td>
+                                        <td>1560km</td>
+                                        <td>2890</td>
+                                        <td>
+                                            <button class="table-btn danger">维修</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <div style="margin-top: 24px; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
+                                <span style="color: #64748b; font-size: 15px; font-weight: 600;">选中车辆操作:</span>
+                                <button class="table-btn" style="margin-left: 20px;">前往充电点</button>
+                                <button class="table-btn danger">紧急制动</button>
+                                <button class="table-btn">返回停车点</button>
+                            </div>
+                        </div>
+
+                        <div id="taskPanel" style="display: none;">
+                            <div style="display: flex; gap: 12px; margin-bottom: 24px;">
+                                <button class="btn-primary" style="padding: 14px 28px; font-size: 15px;">创建任务</button>
+                                <button class="btn-secondary" style="padding: 14px 28px; font-size: 15px;">导出任务</button>
+                            </div>
+                            
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>任务ID</th>
+                                        <th>航班号</th>
+                                        <th>类型</th>
+                                        <th>状态</th>
+                                        <th>车辆ID</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>T001</td>
+                                        <td>MU5101</td>
+                                        <td>下机</td>
+                                        <td><span style="color: #3b82f6; font-weight: 700;">配送中</span></td>
+                                        <td>AGV-002</td>
+                                        <td>
+                                            <button class="table-btn danger">取消</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>T002</td>
+                                        <td>CZ3288</td>
+                                        <td>上机</td>
+                                        <td><span style="color: #f59e0b; font-weight: 700;">待接单</span></td>
+                                        <td>-</td>
+                                        <td>
+                                            <button class="table-btn">分配</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>T003</td>
+                                        <td>HU7890</td>
+                                        <td>下机</td>
+                                        <td><span style="color: #22c55e; font-weight: 700;">已完成</span></td>
+                                        <td>AGV-001</td>
+                                        <td>
+                                            <button class="table-btn">查看</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <div style="margin-top: 24px; font-size: 15px; color: #64748b; font-weight: 600;">
+                                任务队列: <span style="color: #f59e0b;">待接单(3)</span> | <span style="color: #3b82f6;">进行中(5)</span> | <span style="color: #22c55e;">已完成(18)</span>
+                            </div>
+                        </div>
+
+                        <div id="configPanel" style="display: none;">
+                            <div style="display: flex; gap: 12px; margin-bottom: 24px;">
+                                <button class="filter-btn" style="padding: 12px 24px; font-size: 14px; background: #3b82f6; color: white; border-color: #3b82f6;">路径规划</button>
+                                <button class="filter-btn" style="padding: 12px 24px; font-size: 14px;">安全参数</button>
+                                <button class="filter-btn" style="padding: 12px 24px; font-size: 14px;">用户管理</button>
+                            </div>
+                            
+                            <div style="background: white; border-radius: 20px; padding: 32px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
+                                <h4 style="color: #1e293b; font-size: 18px; font-weight: 700; margin-bottom: 24px;">路径规划设置</h4>
+                                <div style="margin-bottom: 16px;">
+                                    <label style="color: #64748b; font-size: 15px; font-weight: 600;">自动规划: </label>
+                                    <span style="color: #22c55e; font-weight: 700;">开启</span>
+                                </div>
+                                <div style="margin-bottom: 16px;">
+                                    <label style="color: #64748b; font-size: 15px; font-weight: 600;">避障优先级: </label>
+                                    <span style="color: #1e293b; font-weight: 700;">行人 > 车辆 > 障碍物</span>
+                                </div>
+                                <div style="margin-bottom: 24px;">
+                                    <label style="color: #64748b; font-size: 15px; font-weight: 600;">最大速度: </label>
+                                    <span style="color: #1e293b; font-weight: 700;">20 km/h</span>
+                                </div>
+                                
+                                <h4 style="color: #1e293b; font-size: 18px; font-weight: 700; margin-bottom: 24px;">对接安全参数</h4>
+                                <div style="margin-bottom: 16px;">
+                                    <label style="color: #64748b; font-size: 15px; font-weight: 600;">对接距离阈值: </label>
+                                    <span style="color: #1e293b; font-weight: 700;">50cm</span>
+                                </div>
+                                <div style="margin-bottom: 16px;">
+                                    <label style="color: #64748b; font-size: 15px; font-weight: 600;">缓冲距离: </label>
+                                    <span style="color: #1e293b; font-weight: 700;">30cm</span>
+                                </div>
+                                <div style="margin-bottom: 24px;">
+                                    <label style="color: #64748b; font-size: 15px; font-weight: 600;">接近减速距离: </label>
+                                    <span style="color: #1e293b; font-weight: 700;">5m</span>
+                                </div>
+                                
+                                <button class="btn-primary" style="padding: 16px 48px;">保存配置</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AGV车载屏端 - iPad -->
+        <div id="agv-tab" class="tab-content">
+            <div class="ipad-container">
+                <div class="ipad-screen">
+                    <div class="ipad-header">
+                        <h2>AGV-002 车载控制屏</h2>
+                    </div>
+                    
+                    <div class="ipad-body" id="agvBody">
+                        <div id="agvStatus">
+                            <div class="agv-status-cards">
+                                <div class="agv-card">
+                                    <div class="agv-card-label">当前任务</div>
+                                    <div class="agv-card-value">MU5101</div>
+                                </div>
+                                <div class="agv-card">
+                                    <div class="agv-card-label">电量</div>
+                                    <div class="agv-card-value success">75%</div>
+                                </div>
+                                <div class="agv-card">
+                                    <div class="agv-card-label">速度</div>
+                                    <div class="agv-card-value">15 km/h</div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; border-radius: 20px; padding: 32px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
+                                <div style="font-size: 16px; color: #64748b; margin-bottom: 8px; font-weight: 600;">目标位置</div>
+                                <div style="font-size: 24px; font-weight: 700; color: #1e293b;">行李转盘 #3</div>
+                                <div style="font-size: 16px; color: #64748b; margin-top: 8px; font-weight: 600;">预计到达: 09:35</div>
+                            </div>
+                            
+                            <div style="display: flex; gap: 20px;">
+                                <button class="btn-primary" onclick="showAgvControl()" style="padding: 20px 48px; font-size: 18px;">手动控制</button>
+                                <button class="btn-secondary" onclick="showAgvDocking()" style="padding: 20px 48px; font-size: 18px;">对接辅助</button>
+                            </div>
+                        </div>
+
+                        <div id="agvControl" style="display: none;">
+                            <button style="color: #3b82f6; font-size: 18px; margin-bottom: 24px; cursor: pointer; font-weight: 600; background: none; border: none;" onclick="showAgvStatus()">← 返回</button>
+                            
+                            <div class="control-panel">
+                                <div class="control-title">手动控制</div>
+                                
+                                <div class="direction-pad">
+                                    <button class="dir-btn">↑</button>
+                                    <div class="dir-btn-row">
+                                        <button class="dir-btn">←</button>
+                                        <button class="dir-btn" style="background: #cbd5e1;">○</button>
+                                        <button class="dir-btn">→</button>
+                                    </div>
+                                    <button class="dir-btn">↓</button>
+                                </div>
+                                
+                                <div class="action-buttons">
+                                    <button class="action-btn">开灯</button>
+                                    <button class="action-btn">鸣笛</button>
+                                    <button class="action-btn">车门</button>
+                                </div>
+                                
+                                <div style="text-align: center;">
+                                    <button class="emergency-btn">紧急停止</button>
+                                </div>
+                                
+                                <div style="text-align: center; font-size: 14px; color: #64748b; margin-top: 16px; font-weight: 600;">
+                                    提示: 急停按钮为物理+虚拟双保险
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="agvDocking" style="display: none;">
+                            <button style="color: #3b82f6; font-size: 18px; margin-bottom: 24px; cursor: pointer; font-weight: 600; background: none; border: none;" onclick="showAgvStatus()">← 返回</button>
+                            
+                            <div class="docking-view">
+                                <div class="camera-feed">
+                                    [视觉识别画面] - 货舱门识别中...
+                                </div>
+                                
+                                <div class="docking-info">
+                                    <div class="docking-distance">距离: 0.8m</div>
+                                    <div class="docking-status">
+                                        <span class="status-dot working"></span>
+                                        <span class="status-text">对接中</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="fine-adjust">
+                                    <div class="fine-adjust-title">微调控制</div>
+                                    <div class="direction-pad" style="margin-bottom: 0;">
+                                        <button class="dir-btn" style="width: 70px; height: 70px; font-size: 28px;">↑</button>
+                                        <div class="dir-btn-row">
+                                            <button class="dir-btn" style="width: 70px; height: 70px; font-size: 28px;">←</button>
+                                            <button class="dir-btn" style="width: 70px; height: 70px; font-size: 28px; background: #cbd5e1;">○</button>
+                                            <button class="dir-btn" style="width: 70px; height: 70px; font-size: 28px;">→</button>
+                                        </div>
+                                        <button class="dir-btn" style="width: 70px; height: 70px; font-size: 28px;">↓</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: rgba(245, 158, 11, 0.1); border: 2px solid #f59e0b; border-radius: 16px; padding: 24px; text-align: center;">
+                                <span style="color: #f59e0b; font-size: 18px; font-weight: 700;">⚠️ 接近飞机，自动减速中...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 悬浮窗拖拽功能
+        const floatingTabs = document.querySelector('.floating-tabs');
+        let isDragging = false;
+        let offsetX, offsetY;
+
+        floatingTabs.addEventListener('mousedown', (e) => {
+            if (e.target.classList.contains('floating-tab-btn')) return;
+            isDragging = true;
+            offsetX = e.clientX - floatingTabs.getBoundingClientRect().left;
+            offsetY = e.clientY - floatingTabs.getBoundingClientRect().top;
+            floatingTabs.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            
+            let x = e.clientX - offsetX;
+            let y = e.clientY - offsetY;
+            
+            // 限制在视窗内
+            const maxX = window.innerWidth - floatingTabs.offsetWidth;
+            const maxY = window.innerHeight - floatingTabs.offsetHeight;
+            
+            x = Math.max(0, Math.min(x, maxX));
+            y = Math.max(0, Math.min(y, maxY));
+            
+            floatingTabs.style.left = x + 'px';
+            floatingTabs.style.top = y + 'px';
+            floatingTabs.style.right = 'auto';
+            floatingTabs.style.bottom = 'auto';
+            floatingTabs.style.transform = 'scale(0.75)';
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            floatingTabs.style.cursor = 'move';
+        });
+
+        function switchTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.floating-tab-btn');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function setNavActive(navId) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.nav-item')[navId].classList.add('active');
+        }
+
+        function clearAllMessages() {
+            document.getElementById('messageList').style.display = 'none';
+            document.getElementById('emptyMessage').style.display = 'block';
+        }
+
+        function showActionFeedback(action) {
+            alert(action + '指令已发送');
+        }
+
+        function showFlightPage() {
+            document.getElementById('flightPage').style.display = 'block';
+            document.getElementById('taskPage').style.display = 'none';
+            document.getElementById('vehiclePage').style.display = 'none';
+            document.getElementById('messagePage').style.display = 'none';
+            document.getElementById('profilePage').style.display = 'none';
+            setNavActive(0);
+        }
+
+        function showTaskDetail() {
+            document.getElementById('flightPage').style.display = 'none';
+            document.getElementById('taskPage').style.display = 'block';
+            document.getElementById('vehiclePage').style.display = 'none';
+            document.getElementById('messagePage').style.display = 'none';
+            document.getElementById('profilePage').style.display = 'none';
+            setNavActive(1);
+        }
+
+        function showVehiclePage() {
+            document.getElementById('flightPage').style.display = 'none';
+            document.getElementById('taskPage').style.display = 'none';
+            document.getElementById('vehiclePage').style.display = 'block';
+            document.getElementById('messagePage').style.display = 'none';
+            document.getElementById('profilePage').style.display = 'none';
+            setNavActive(2);
+        }
+
+        function showMessagePage() {
+            document.getElementById('flightPage').style.display = 'none';
+            document.getElementById('taskPage').style.display = 'none';
+            document.getElementById('vehiclePage').style.display = 'none';
+            document.getElementById('messagePage').style.display = 'block';
+            document.getElementById('profilePage').style.display = 'none';
+            setNavActive(3);
+        }
+
+        function showProfilePage() {
+            document.getElementById('flightPage').style.display = 'none';
+            document.getElementById('taskPage').style.display = 'none';
+            document.getElementById('vehiclePage').style.display = 'none';
+            document.getElementById('messagePage').style.display = 'none';
+            document.getElementById('profilePage').style.display = 'block';
+            setNavActive(4);
+        }
+
+        function showDesktopPanel(panelId) {
+            const panels = ['monitorPanel', 'vehiclePanel', 'taskPanel', 'configPanel'];
+            const items = document.querySelectorAll('.sidebar-item');
+            
+            panels.forEach(panel => {
+                document.getElementById(panel).style.display = 'none';
+            });
+            items.forEach(item => item.classList.remove('active'));
+            
+            document.getElementById(panelId + 'Panel').style.display = 'block';
+            event.target.classList.add('active');
+        }
+
+        function showAgvStatus() {
+            document.getElementById('agvStatus').style.display = 'block';
+            document.getElementById('agvControl').style.display = 'none';
+            document.getElementById('agvDocking').style.display = 'none';
+        }
+
+        function showAgvControl() {
+            document.getElementById('agvStatus').style.display = 'none';
+            document.getElementById('agvControl').style.display = 'block';
+            document.getElementById('agvDocking').style.display = 'none';
+        }
+
+        function showAgvDocking() {
+            document.getElementById('agvStatus').style.display = 'none';
+            document.getElementById('agvControl').style.display = 'none';
+            document.getElementById('agvDocking').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

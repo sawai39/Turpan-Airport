@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C909无人行李车运送系统 - UI原型展示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 5px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            background: #334155;
+            color: #cbd5e1;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: #3b82f6;
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+
+        .tab-btn:hover {
+            background: #475569;
+        }
+
+        .tab-btn.active:hover {
+            background: #2563eb;
+        }
+
+        .content {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* 手机APP样式 */
+        .phone-container {
+            width: 320px;
+            background: #1e293b;
+            border-radius: 40px;
+            padding: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 3px solid #334155;
+        }
+
+        .phone-screen {
+            background: #0f172a;
+            border-radius: 30px;
+            overflow: hidden;
+            min-height: 640px;
+        }
+
+        .phone-status-bar {
+            background: #1e293b;
+            padding: 15px 20px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: white;
+        }
+
+        .phone-header {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            padding: 15px 20px;
+            text-align: center;
+        }
+
+        .phone-header h2 {
+            font-size: 16px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .phone-nav {
+            display: flex;
+            justify-content: space-around;
+            background: #1e293b;
+            padding: 12px 0;
+            border-top: 1px solid #334155;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #64748b;
+            font-size: 10px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .nav-item.active {
+            color: #3b82f6;
+        }
+
+        .nav-item span {
+            margin-top: 3px;
+        }
+
+        .phone-content {
+            padding: 15px;
+            max-height: 480px;
+            overflow-y: auto;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px 15px;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 20px;
+            color: white;
+            font-size: 13px;
+        }
+
+        .filter-btn {
+            padding: 10px 15px;
+            background: #334155;
+            border: none;
+            border-radius: 20px;
+            color: #cbd5e1;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .flight-card {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid #334155;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .flight-card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .flight-number {
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .flight-info {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 5px;
+        }
+
+        .flight-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-pending {
+            background: #f59e0b;
+        }
+
+        .status-transporting {
+            background: #3b82f6;
+        }
+
+        .status-completed {
+            background: #22c55e;
+        }
+
+        .status-warning {
+            background: #ef4444;
+        }
+
+        /* 任务状态流转 */
+        .status-flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .status-node {
+            padding: 6px 12px;
+            background: #1e293b;
+            border-radius: 6px;
+            font-size: 11px;
+            color: #64748b;
+            border: 1px solid #334155;
+        }
+
+        .status-node.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: transform 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #334155;
+            color: #cbd5e1;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: #475569;
+            transform: translateY(-2px);
+        }
+
+        /* 地图区域 */
+        .map-area {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            min-height: 150px;
+            position: relative;
+        }
+
+        .map-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .map-dot.idle {
+            background: #22c55e;
+        }
+
+        .map-dot.working {
+            background: #3b82f6;
+        }
+
+        .map-dot.charging {
+            background: #f59e0b;
+        }
+
+        .map-label {
+            position: absolute;
+            font-size: 10px;
+            color: #94a3b8;
+            white-space: nowrap;
+        }
+
+        /* 消息列表 */
+        .message-item {
+            background: #1e293b;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .message-item.warning {
+            border-left-color: #ef4444;
+        }
+
+        .message-content {
+            font-size: 13px;
+            color: #e2e8f0;
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 5px;
+        }
+
+        /* 电脑端样式 */
+        .desktop-container {
+            width: 100%;
+            max-width: 1200px;
+            background: #1e293b;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .desktop-header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+        }
+
+        .desktop-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .desktop-info {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .desktop-body {
+            display: flex;
+            height: 500px;
+        }
+
+        .desktop-sidebar {
+            width: 200px;
+            background: #0f172a;
+            padding: 20px 0;
+        }
+
+        .sidebar-item {
+            padding: 12px 20px;
+            color: #94a3b8;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-item.active {
+            background: rgba(59, 130, 246, 0.1);
+            color: white;
+            border-left-color: #3b82f6;
+        }
+
+        .sidebar-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .desktop-main {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        /* 大屏监控 */
+        .monitor-map {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            min-height: 250px;
+            position: relative;
+        }
+
+        .map-building {
+            position: absolute;
+            background: #334155;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        .map-carousel {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #f59e0b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .map-aircraft {
+            position: absolute;
+            font-size: 30px;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #334155;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 5px;
+        }
+
+        /* 表格样式 */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .data-table th, .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+        }
+
+        .data-table th {
+            background: #0f172a;
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .data-table td {
+            color: #e2e8f0;
+            font-size: 13px;
+        }
+
+        .table-btn {
+            padding: 6px 12px;
+            background: #334155;
+            border: none;
+            border-radius: 6px;
+            color: #cbd5e1;
+            font-size: 12px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .table-btn:hover {
+            background: #475569;
+        }
+
+        .table-btn.danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        /* AGV车载屏样式 */
+        .agv-container {
+            width: 480px;
+            background: #1e293b;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 3px solid #334155;
+        }
+
+        .agv-header {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            padding: 12px 20px;
+            text-align: center;
+        }
+
+        .agv-header h2 {
+            font-size: 16px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .agv-body {
+            padding: 20px;
+        }
+
+        .agv-status-cards {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .agv-card {
+            flex: 1;
+            background: #0f172a;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .agv-card-label {
+            font-size: 11px;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+
+        .agv-card-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .agv-card-value.warning {
+            color: #f59e0b;
+        }
+
+        .agv-card-value.success {
+            color: #22c55e;
+        }
+
+        /* 手动控制面板 */
+        .control-panel {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .control-title {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .direction-pad {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .dir-btn {
+            width: 50px;
+            height: 50px;
+            background: #334155;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dir-btn:hover {
+            background: #475569;
+            transform: scale(1.1);
+        }
+
+        .dir-btn-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .action-btn {
+            padding: 12px 20px;
+            background: #334155;
+            border: none;
+            border-radius: 8px;
+            color: #cbd5e1;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background: #475569;
+        }
+
+        .emergency-btn {
+            background: #ef4444;
+            color: white;
+            padding: 15px 30px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .emergency-btn:hover {
+            background: #dc2626;
+        }
+
+        /* 对接辅助界面 */
+        .docking-view {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .camera-feed {
+            background: #1e293b;
+            border-radius: 8px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .docking-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .docking-distance {
+            font-size: 18px;
+            font-weight: 600;
+            color: #3b82f6;
+        }
+
+        .docking-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-text {
+            font-size: 14px;
+            color: #22c55e;
+        }
+
+        .fine-adjust {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .fine-adjust-title {
+            font-size: 12px;
+            color: #64748b;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        /* 标签切换内容 */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .desktop-body {
+                flex-direction: column;
+            }
+            .desktop-sidebar {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                border-bottom: 1px solid #334155;
+            }
+            .sidebar-item {
+                padding: 10px 15px;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+            .sidebar-item.active {
+                border-left: none;
+                border-bottom-color: #3b82f6;
+            }
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>C909无人行李车运送系统</h1>
+        <p>基于5G专网的智能行李运输解决方案</p>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('app-tab')">APP端</button>
+        <button class="tab-btn" onclick="switchTab('desktop-tab')">中台电脑端</button>
+        <button class="tab-btn" onclick="switchTab('agv-tab')">AGV车载屏端</button>
+    </div>
+
+    <div class="content">
+        <!-- APP端 -->
+        <div id="app-tab" class="tab-content active">
+            <div class="phone-container">
+                <div class="phone-screen">
+                    <div class="phone-status-bar">
+                        <span>9:30</span>
+                        <span>5G</span>
+                    </div>
+                    <div class="phone-header">
+                        <h2>C909无人行李车系统</h2>
+                    </div>
+                    
+                    <!-- APP内容区域 -->
+                    <div class="phone-content" id="appContent">
+                        <!-- 首页 - 航班列表 -->
+                        <div id="flightPage">
+                            <div class="search-bar">
+                                <input type="text" class="search-input" placeholder="搜索航班号">
+                                <button class="filter-btn">筛选</button>
+                            </div>
+                            
+                            <div class="flight-card" onclick="showTaskDetail()">
+                                <div class="flight-number">MU5101</div>
+                                <div class="flight-info">目的地: 北京首都</div>
+                                <div class="flight-info">计划起飞: 09:30</div>
+                                <div class="flight-info">行李转盘: #3</div>
+                                <div class="flight-status">
+                                    <span class="status-dot status-pending"></span>
+                                    <span>待下机</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-card">
+                                <div class="flight-number">CZ3288</div>
+                                <div class="flight-info">目的地: 上海浦东</div>
+                                <div class="flight-info">计划起飞: 10:15</div>
+                                <div class="flight-info">行李转盘: #5</div>
+                                <div class="flight-status">
+                                    <span class="status-dot status-transporting"></span>
+                                    <span>待上机</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-card">
+                                <div class="flight-number">HU7890</div>
+                                <div class="flight-info">来源地: 广州白云</div>
+                                <div class="flight-info">计划到达: 11:00</div>
+                                <div class="flight-info">行李转盘: #2</div>
+                                <div class="flight-status">
+                                    <span class="status-dot status-completed"></span>
+                                    <span>已完成</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 任务详情页 -->
+                        <div id="taskPage" style="display: none;">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                                <span style="cursor: pointer; color: #3b82f6;" onclick="showFlightPage()">← 返回</span>
+                                <h3 style="color: white; font-size: 16px;">任务详情 - MU5101</h3>
+                            </div>
+                            
+                            <div style="background: #1e293b; border-radius: 12px; padding: 15px; margin-bottom: 15px;">
+                                <div style="font-size: 13px; color: #94a3b8; margin-bottom: 5px;">配送类型: <span style="color: white;">行李下机</span></div>
+                                <div style="font-size: 13px; color: #94a3b8; margin-bottom: 5px;">目标位置: <span style="color: white;">行李转盘 #3</span></div>
+                                <div style="font-size: 13px; color: #94a3b8; margin-bottom: 5px;">行李数量: <span style="color: white;">120 件</span></div>
+                                <div style="font-size: 13px; color: #94a3b8;">分配车辆: <span style="color: #3b82f6;">AGV-003</span></div>
+                            </div>
+                            
+                            <div style="margin-bottom: 20px;">
+                                <div style="font-size: 12px; color: #64748b; margin-bottom: 10px;">任务状态流转</div>
+                                <div class="status-flow">
+                                    <div class="status-node">待接单</div>
+                                    <div class="status-node">已接单</div>
+                                    <div class="status-node">到达</div>
+                                    <div class="status-node active">装载中</div>
+                                    <div class="status-node">配送中</div>
+                                    <div class="status-node">已送达</div>
+                                    <div class="status-node">已完成</div>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn-primary">确认装载完成</button>
+                                <button class="btn-secondary">取消任务</button>
+                            </div>
+                        </div>
+
+                        <!-- 车辆监控页 -->
+                        <div id="vehiclePage" style="display: none;">
+                            <h3 style="color: white; font-size: 16px; margin-bottom: 15px;">车辆状态监控</h3>
+                            
+                            <div class="map-area">
+                                <span style="font-size: 12px; color: #64748b;">机场区域</span>
+                                <div class="map-dot idle" style="top: 40px; left: 60px;"></div>
+                                <div class="map-label" style="top: 55px; left: 50px;">AGV-001</div>
+                                <div class="map-dot working" style="top: 80px; left: 120px;"></div>
+                                <div class="map-label" style="top: 95px; left: 110px;">AGV-002</div>
+                                <div class="map-dot charging" style="top: 50px; left: 180px;"></div>
+                                <div class="map-label" style="top: 65px; left: 170px;">AGV-003</div>
+                            </div>
+                            
+                            <div style="background: #1e293b; border-radius: 12px; padding: 15px; margin-bottom: 15px;">
+                                <div style="font-size: 14px; font-weight: 600; color: white; margin-bottom: 10px;">AGV-002</div>
+                                <div style="font-size: 12px; color: #94a3b8; margin-bottom: 5px;">状态: <span style="color: #3b82f6;">运输中</span></div>
+                                <div style="font-size: 12px; color: #94a3b8; margin-bottom: 5px;">电量: <span style="color: #22c55e;">75%</span></div>
+                                <div style="font-size: 12px; color: #94a3b8;">当前任务: <span style="color: white;">MU5101 行李下机</span></div>
+                            </div>
+                            
+                            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                <button class="action-btn">鸣笛</button>
+                                <button class="action-btn">开灯</button>
+                                <button class="action-btn">刹车</button>
+                                <button class="action-btn">暂停</button>
+                                <button class="action-btn">继续</button>
+                            </div>
+                        </div>
+
+                        <!-- 消息通知页 -->
+                        <div id="messagePage" style="display: none;">
+                            <h3 style="color: white; font-size: 16px; margin-bottom: 15px;">消息通知</h3>
+                            
+                            <div class="message-item">
+                                <div class="message-content">AGV-003 已到达行李转盘 #3</div>
+                                <div class="message-time">2分钟前</div>
+                            </div>
+                            
+                            <div class="message-item">
+                                <div class="message-content">任务 MU5101 状态已更新为"装载中"</div>
+                                <div class="message-time">5分钟前</div>
+                            </div>
+                            
+                            <div class="message-item warning">
+                                <div class="message-content">AGV-001 电量低于20%，需充电</div>
+                                <div class="message-time">10分钟前</div>
+                            </div>
+                            
+                            <div class="message-item warning">
+                                <div class="message-content">AGV-002 路径受阻，请处理</div>
+                                <div class="message-time">15分钟前</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="phone-nav">
+                        <div class="nav-item active" onclick="showFlightPage()">
+                            <span>🏠</span>
+                            <span>首页</span>
+                        </div>
+                        <div class="nav-item" onclick="showTaskDetail()">
+                            <span>📋</span>
+                            <span>任务</span>
+                        </div>
+                        <div class="nav-item" onclick="showVehiclePage()">
+                            <span>🚗</span>
+                            <span>车辆</span>
+                        </div>
+                        <div class="nav-item" onclick="showMessagePage()">
+                            <span>🔔</span>
+                            <span>消息</span>
+                        </div>
+                        <div class="nav-item">
+                            <span>👤</span>
+                            <span>我的</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 中台电脑端 -->
+        <div id="desktop-tab" class="tab-content">
+            <div class="desktop-container">
+                <div class="desktop-header">
+                    <div class="desktop-title">C909无人行李车调度中心</div>
+                    <div class="desktop-info">日期: 2026-05-18 | 时间: 09:30:00 | 值班人员: 张三</div>
+                </div>
+                
+                <div class="desktop-body">
+                    <div class="desktop-sidebar">
+                        <div class="sidebar-item active" onclick="showDesktopPanel('monitor')">大屏监控</div>
+                        <div class="sidebar-item" onclick="showDesktopPanel('vehicle')">车辆管理</div>
+                        <div class="sidebar-item" onclick="showDesktopPanel('task')">任务调度</div>
+                        <div class="sidebar-item" onclick="showDesktopPanel('config')">系统配置</div>
+                    </div>
+                    
+                    <div class="desktop-main" id="desktopMain">
+                        <!-- 大屏监控 -->
+                        <div id="monitorPanel">
+                            <h3 style="color: white; font-size: 18px; margin-bottom: 20px;">实时监控</h3>
+                            
+                            <div class="monitor-map">
+                                <div class="map-building" style="top: 20px; left: 20px; width: 80px; height: 60px;">航站楼</div>
+                                <div class="map-carousel" style="top: 100px; left: 50px;">#1</div>
+                                <div class="map-carousel" style="top: 100px; left: 150px;">#2</div>
+                                <div class="map-carousel" style="top: 100px; left: 250px;">#3</div>
+                                <div class="map-aircraft" style="top: 50px; left: 400px;">✈️</div>
+                                
+                                <div class="map-dot working" style="top: 80px; left: 180px;"></div>
+                                <div class="map-label" style="top: 95px; left: 170px;">AGV-002</div>
+                                <div class="map-dot idle" style="top: 60px; left: 300px;"></div>
+                                <div class="map-label" style="top: 75px; left: 290px;">AGV-001</div>
+                            </div>
+                            
+                            <div class="stats-row">
+                                <div class="stat-card">
+                                    <div class="stat-value">8/10</div>
+                                    <div class="stat-label">在线车辆</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">12</div>
+                                    <div class="stat-label">运行任务</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value" style="color: #ef4444;">2</div>
+                                    <div class="stat-label">异常报警</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">156</div>
+                                    <div class="stat-label">今日完成</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 车辆管理 -->
+                        <div id="vehiclePanel" style="display: none;">
+                            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                                <button class="tab-btn" style="padding: 8px 16px; font-size: 12px;">全部车辆</button>
+                                <button class="tab-btn active" style="padding: 8px 16px; font-size: 12px;">空闲车辆</button>
+                                <button class="tab-btn" style="padding: 8px 16px; font-size: 12px;">故障车辆</button>
+                            </div>
+                            
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>车辆ID</th>
+                                        <th>状态</th>
+                                        <th>电量</th>
+                                        <th>累计里程</th>
+                                        <th>累计次数</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>AGV-001</td>
+                                        <td><span style="color: #22c55e;">空闲</span></td>
+                                        <td>85%</td>
+                                        <td>1250km</td>
+                                        <td>3250</td>
+                                        <td>
+                                            <button class="table-btn">详情</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>AGV-002</td>
+                                        <td><span style="color: #3b82f6;">运输中</span></td>
+                                        <td>70%</td>
+                                        <td>1890km</td>
+                                        <td>4120</td>
+                                        <td>
+                                            <button class="table-btn">详情</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>AGV-003</td>
+                                        <td><span style="color: #f59e0b;">充电</span></td>
+                                        <td>25%</td>
+                                        <td>2100km</td>
+                                        <td>5080</td>
+                                        <td>
+                                            <button class="table-btn">详情</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>AGV-004</td>
+                                        <td><span style="color: #ef4444;">故障</span></td>
+                                        <td>45%</td>
+                                        <td>1560km</td>
+                                        <td>2890</td>
+                                        <td>
+                                            <button class="table-btn danger">维修</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <div style="margin-top: 20px; padding: 15px; background: #0f172a; border-radius: 10px;">
+                                <span style="color: #64748b; font-size: 13px;">选中车辆操作:</span>
+                                <button class="table-btn" style="margin-left: 15px;">前往充电点</button>
+                                <button class="table-btn danger">紧急制动</button>
+                                <button class="table-btn">返回停车点</button>
+                            </div>
+                        </div>
+
+                        <!-- 任务调度 -->
+                        <div id="taskPanel" style="display: none;">
+                            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                                <button class="btn-primary" style="padding: 10px 20px; font-size: 13px;">创建任务</button>
+                                <button class="btn-secondary" style="padding: 10px 20px; font-size: 13px;">导出任务</button>
+                            </div>
+                            
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>任务ID</th>
+                                        <th>航班号</th>
+                                        <th>类型</th>
+                                        <th>状态</th>
+                                        <th>车辆ID</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>T001</td>
+                                        <td>MU5101</td>
+                                        <td>下机</td>
+                                        <td><span style="color: #3b82f6;">配送中</span></td>
+                                        <td>AGV-002</td>
+                                        <td>
+                                            <button class="table-btn danger">取消</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>T002</td>
+                                        <td>CZ3288</td>
+                                        <td>上机</td>
+                                        <td><span style="color: #f59e0b;">待接单</span></td>
+                                        <td>-</td>
+                                        <td>
+                                            <button class="table-btn">分配</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>T003</td>
+                                        <td>HU7890</td>
+                                        <td>下机</td>
+                                        <td><span style="color: #22c55e;">已完成</span></td>
+                                        <td>AGV-001</td>
+                                        <td>
+                                            <button class="table-btn">查看</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <div style="margin-top: 20px; font-size: 13px; color: #64748b;">
+                                任务队列: <span style="color: #f59e0b;">待接单(3)</span> | <span style="color: #3b82f6;">进行中(5)</span> | <span style="color: #22c55e;">已完成(18)</span>
+                            </div>
+                        </div>
+
+                        <!-- 系统配置 -->
+                        <div id="configPanel" style="display: none;">
+                            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                                <button class="tab-btn active" style="padding: 8px 16px; font-size: 12px;">路径规划</button>
+                                <button class="tab-btn" style="padding: 8px 16px; font-size: 12px;">安全参数</button>
+                                <button class="tab-btn" style="padding: 8px 16px; font-size: 12px;">用户管理</button>
+                            </div>
+                            
+                            <div style="background: #0f172a; border-radius: 12px; padding: 20px;">
+                                <h4 style="color: white; font-size: 14px; margin-bottom: 15px;">路径规划设置</h4>
+                                <div style="margin-bottom: 10px;">
+                                    <label style="color: #94a3b8; font-size: 13px;">自动规划: </label>
+                                    <span style="color: #22c55e;">开启</span>
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <label style="color: #94a3b8; font-size: 13px;">避障优先级: </label>
+                                    <span style="color: white;">行人 > 车辆 > 障碍物</span>
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <label style="color: #94a3b8; font-size: 13px;">最大速度: </label>
+                                    <span style="color: white;">20 km/h</span>
+                                </div>
+                                
+                                <h4 style="color: white; font-size: 14px; margin-bottom: 15px;">对接安全参数</h4>
+                                <div style="margin-bottom: 10px;">
+                                    <label style="color: #94a3b8; font-size: 13px;">对接距离阈值: </label>
+                                    <span style="color: white;">50cm</span>
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <label style="color: #94a3b8; font-size: 13px;">缓冲距离: </label>
+                                    <span style="color: white;">30cm</span>
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <label style="color: #94a3b8; font-size: 13px;">接近减速距离: </label>
+                                    <span style="color: white;">5m</span>
+                                </div>
+                                
+                                <button class="btn-primary" style="padding: 10px 30px;">保存配置</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AGV车载屏端 -->
+        <div id="agv-tab" class="tab-content">
+            <div class="agv-container">
+                <div class="agv-header">
+                    <h2>AGV-002 车载控制屏</h2>
+                </div>
+                
+                <div class="agv-body" id="agvBody">
+                    <!-- 状态卡片页 -->
+                    <div id="agvStatus">
+                        <div class="agv-status-cards">
+                            <div class="agv-card">
+                                <div class="agv-card-label">当前任务</div>
+                                <div class="agv-card-value">MU5101</div>
+                            </div>
+                            <div class="agv-card">
+                                <div class="agv-card-label">电量</div>
+                                <div class="agv-card-value success">75%</div>
+                            </div>
+                            <div class="agv-card">
+                                <div class="agv-card-label">速度</div>
+                                <div class="agv-card-value">15 km/h</div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: #0f172a; border-radius: 12px; padding: 15px; margin-bottom: 15px;">
+                            <div style="font-size: 13px; color: #94a3b8; margin-bottom: 5px;">目标位置</div>
+                            <div style="font-size: 16px; font-weight: 600; color: white;">行李转盘 #3</div>
+                            <div style="font-size: 12px; color: #64748b; margin-top: 5px;">预计到达: 09:35</div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 15px;">
+                            <button class="btn-primary" onclick="showAgvControl()">手动控制</button>
+                            <button class="btn-secondary" onclick="showAgvDocking()">对接辅助</button>
+                        </div>
+                    </div>
+
+                    <!-- 手动控制面板 -->
+                    <div id="agvControl" style="display: none;">
+                        <button style="color: #3b82f6; font-size: 13px; margin-bottom: 15px; cursor: pointer;" onclick="showAgvStatus()">← 返回</button>
+                        
+                        <div class="control-panel">
+                            <div class="control-title">手动控制</div>
+                            
+                            <div class="direction-pad">
+                                <button class="dir-btn">↑</button>
+                                <div class="dir-btn-row">
+                                    <button class="dir-btn">←</button>
+                                    <button class="dir-btn" style="background: #475569;">○</button>
+                                    <button class="dir-btn">→</button>
+                                </div>
+                                <button class="dir-btn">↓</button>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <button class="action-btn">开灯</button>
+                                <button class="action-btn">鸣笛</button>
+                                <button class="action-btn">车门</button>
+                            </div>
+                            
+                            <div style="text-align: center;">
+                                <button class="emergency-btn">紧急停止</button>
+                            </div>
+                            
+                            <div style="text-align: center; font-size: 11px; color: #64748b; margin-top: 10px;">
+                                提示: 急停按钮为物理+虚拟双保险
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 对接辅助界面 -->
+                    <div id="agvDocking" style="display: none;">
+                        <button style="color: #3b82f6; font-size: 13px; margin-bottom: 15px; cursor: pointer;" onclick="showAgvStatus()">← 返回</button>
+                        
+                        <div class="docking-view">
+                            <div class="camera-feed">
+                                [视觉识别画面] - 货舱门识别中...
+                            </div>
+                            
+                            <div class="docking-info">
+                                <div class="docking-distance">距离: 0.8m</div>
+                                <div class="docking-status">
+                                    <span class="status-dot working"></span>
+                                    <span class="status-text">对接中</span>
+                                </div>
+                            </div>
+                            
+                            <div class="fine-adjust">
+                                <div class="fine-adjust-title">微调控制</div>
+                                <div class="direction-pad" style="margin-bottom: 0;">
+                                    <button class="dir-btn" style="width: 40px; height: 40px; font-size: 16px;">↑</button>
+                                    <div class="dir-btn-row">
+                                        <button class="dir-btn" style="width: 40px; height: 40px; font-size: 16px;">←</button>
+                                        <button class="dir-btn" style="width: 40px; height: 40px; font-size: 16px; background: #475569;">○</button>
+                                        <button class="dir-btn" style="width: 40px; height: 40px; font-size: 16px;">→</button>
+                                    </div>
+                                    <button class="dir-btn" style="width: 40px; height: 40px; font-size: 16px;">↓</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid #f59e0b; border-radius: 10px; padding: 15px; text-align: center;">
+                            <span style="color: #f59e0b; font-size: 13px;">⚠️ 接近飞机，自动减速中...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 终端标签切换
+        function switchTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-btn');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // APP端页面切换
+        function showFlightPage() {
+            document.getElementById('flightPage').style.display = 'block';
+            document.getElementById('taskPage').style.display = 'none';
+            document.getElementById('vehiclePage').style.display = 'none';
+            document.getElementById('messagePage').style.display = 'none';
+        }
+
+        function showTaskDetail() {
+            document.getElementById('flightPage').style.display = 'none';
+            document.getElementById('taskPage').style.display = 'block';
+            document.getElementById('vehiclePage').style.display = 'none';
+            document.getElementById('messagePage').style.display = 'none';
+        }
+
+        function showVehiclePage() {
+            document.getElementById('flightPage').style.display = 'none';
+            document.getElementById('taskPage').style.display = 'none';
+            document.getElementById('vehiclePage').style.display = 'block';
+            document.getElementById('messagePage').style.display = 'none';
+        }
+
+        function showMessagePage() {
+            document.getElementById('flightPage').style.display = 'none';
+            document.getElementById('taskPage').style.display = 'none';
+            document.getElementById('vehiclePage').style.display = 'none';
+            document.getElementById('messagePage').style.display = 'block';
+        }
+
+        // 电脑端面板切换
+        function showDesktopPanel(panelId) {
+            const panels = ['monitorPanel', 'vehiclePanel', 'taskPanel', 'configPanel'];
+            const items = document.querySelectorAll('.sidebar-item');
+            
+            panels.forEach(panel => {
+                document.getElementById(panel).style.display = 'none';
+            });
+            items.forEach(item => item.classList.remove('active'));
+            
+            document.getElementById(panelId + 'Panel').style.display = 'block';
+            event.target.classList.add('active');
+        }
+
+        // AGV端页面切换
+        function showAgvStatus() {
+            document.getElementById('agvStatus').style.display = 'block';
+            document.getElementById('agvControl').style.display = 'none';
+            document.getElementById('agvDocking').style.display = 'none';
+        }
+
+        function showAgvControl() {
+            document.getElementById('agvStatus').style.display = 'none';
+            document.getElementById('agvControl').style.display = 'block';
+            document.getElementById('agvDocking').style.display = 'none';
+        }
+
+        function showAgvDocking() {
+            document.getElementById('agvStatus').style.display = 'none';
+            document.getElementById('agvControl').style.display = 'none';
+            document.getElementById('agvDocking').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
