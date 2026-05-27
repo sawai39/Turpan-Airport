@@ -1372,7 +1372,11 @@
                                     </div>
                                     <div style="background: #f8fafc; border-radius: 12px; padding: 12px;">
                                         <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">行李车数量</div>
-                                        <div style="font-size: 14px; font-weight: 700; color: #1e293b;">3 辆</div>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <button style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #3b82f6; background: white; color: #3b82f6; font-size: 16px; font-weight: 700; cursor: pointer;" onclick="decreaseOrderVehicleCount()">-</button>
+                                            <div style="font-size: 16px; font-weight: 700; color: #1e293b;" id="orderVehicleCount">4</div>
+                                            <button style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #3b82f6; background: white; color: #3b82f6; font-size: 16px; font-weight: 700; cursor: pointer;" onclick="increaseOrderVehicleCount()">+</button>
+                                        </div>
                                     </div>
                                     <div style="background: #f8fafc; border-radius: 12px; padding: 12px;">
                                         <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">总行李数</div>
@@ -1408,11 +1412,20 @@
                                         <span style="padding: 6px 12px; background: rgba(59, 130, 246, 0.1); color: #3b82f6; border-radius: 16px; font-size: 12px; font-weight: 600;">配送中</span>
                                     </div>
                                 </div>
-                                <div style="padding: 16px; cursor: pointer;" onclick="showTaskDetailPage()">
+                                <div style="padding: 16px; border-bottom: 1px solid #e2e8f0; cursor: pointer;" onclick="showTaskDetailPage()">
                                     <div style="display: flex; justify-content: space-between; align-items: center;">
                                         <div>
                                             <div style="font-size: 16px; font-weight: 700; color: #1e293b;">任务 T003</div>
                                             <div style="font-size: 13px; color: #64748b;">车辆: AGV-003 | 处理人员: -</div>
+                                        </div>
+                                        <span style="padding: 6px 12px; background: rgba(245, 158, 11, 0.1); color: #f59e0b; border-radius: 16px; font-size: 12px; font-weight: 600;">待接单</span>
+                                    </div>
+                                </div>
+                                <div style="padding: 16px; cursor: pointer;" onclick="showTaskDetailPage()">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div>
+                                            <div style="font-size: 16px; font-weight: 700; color: #1e293b;">任务 T004</div>
+                                            <div style="font-size: 13px; color: #64748b;">车辆: AGV-004 | 处理人员: -</div>
                                         </div>
                                         <span style="padding: 6px 12px; background: rgba(245, 158, 11, 0.1); color: #f59e0b; border-radius: 16px; font-size: 12px; font-weight: 600;">待接单</span>
                                     </div>
@@ -2216,6 +2229,22 @@
         function confirmCallVehicle() {
             alert('已成功呼叫 ' + vehicleCount + ' 辆行李车');
             hideCallVehicleModal();
+        }
+
+        let orderVehicleCount = 4;
+
+        function increaseOrderVehicleCount() {
+            if (orderVehicleCount < 10) {
+                orderVehicleCount++;
+                document.getElementById('orderVehicleCount').textContent = orderVehicleCount;
+            }
+        }
+
+        function decreaseOrderVehicleCount() {
+            if (orderVehicleCount > 1) {
+                orderVehicleCount--;
+                document.getElementById('orderVehicleCount').textContent = orderVehicleCount;
+            }
         }
 
         function showFlightPage() {
