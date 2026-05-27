@@ -1220,7 +1220,31 @@
         <button class="floating-tab-btn" onclick="switchTab('agv-tab')">AGV车载屏端</button>
     </div>
 
-    <div class="container">
+    <div id="callVehicleModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+            <div style="background: white; border-radius: 24px; padding: 32px; width: 90%; max-width: 400px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);">
+                <div style="text-align: center; margin-bottom: 24px;">
+                    <div style="font-size: 20px; font-weight: 700; color: #1e293b; margin-bottom: 8px;">呼叫行李车</div>
+                    <div style="font-size: 14px; color: #64748b;">航班: GJ 8652 | 机型: B738</div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 24px;">
+                    <div style="font-size: 14px; color: #64748b; margin-bottom: 12px; font-weight: 600;">行李车数量</div>
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 24px;">
+                        <button style="width: 48px; height: 48px; border-radius: 50%; border: 2px solid #3b82f6; background: white; color: #3b82f6; font-size: 24px; font-weight: 700; cursor: pointer; transition: all 0.2s;" onclick="decreaseVehicleCount()" onmouseenter="this.style.background='#eff6ff'" onmouseleave="this.style.background='white'">-</button>
+                        <div style="font-size: 48px; font-weight: 800; color: #1e293b; min-width: 80px; text-align: center;" id="vehicleCount">4</div>
+                        <button style="width: 48px; height: 48px; border-radius: 50%; border: 2px solid #3b82f6; background: white; color: #3b82f6; font-size: 24px; font-weight: 700; cursor: pointer; transition: all 0.2s;" onclick="increaseVehicleCount()" onmouseenter="this.style.background='#eff6ff'" onmouseleave="this.style.background='white'">+</button>
+                    </div>
+                    <div style="font-size: 12px; color: #94a3b8; margin-top: 8px;">(根据机型B738默认推荐4辆)</div>
+                </div>
+                
+                <div style="display: flex; gap: 12px;">
+                    <button style="flex: 1; padding: 16px; background: #f1f5f9; color: #64748b; border: none; border-radius: 16px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s;" onclick="hideCallVehicleModal()" onmouseenter="this.style.background='#e2e8f0'">取消</button>
+                    <button style="flex: 1; padding: 16px; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; border: none; border-radius: 16px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s;" onclick="confirmCallVehicle()" onmouseenter="this.style.transform='scale(1.02)'" onmouseleave="this.style.transform='scale(1)'">确认呼叫</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
         <!-- APP端 - iPhone 15 Pro Max -->
         <div id="app-tab" class="tab-content active">
             <div class="iphone-container">
@@ -1271,7 +1295,7 @@
                                         <span class="status-dot status-pending"></span>
                                         <span>行李装卸中</span>
                                     </div>
-                                    <button style="padding: 8px 20px; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; border: none; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s;" onmouseenter="this.style.transform='scale(1.05)'" onmouseleave="this.style.transform='scale(1)'">呼叫行李车</button>
+                                    <button style="padding: 8px 20px; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; border: none; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s;" onmouseenter="this.style.transform='scale(1.05)'" onmouseleave="this.style.transform='scale(1)'" onclick="showCallVehicleModal()">呼叫行李车</button>
                                 </div>
                             </div>
                             
@@ -1298,7 +1322,7 @@
                                         <span class="status-dot status-transporting"></span>
                                         <span>待上机</span>
                                     </div>
-                                    <button style="padding: 8px 20px; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; border: none; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s;" onmouseenter="this.style.transform='scale(1.05)'" onmouseleave="this.style.transform='scale(1)'">呼叫行李车</button>
+                                    <button style="padding: 8px 20px; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; border: none; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s;" onmouseenter="this.style.transform='scale(1.05)'" onmouseleave="this.style.transform='scale(1)'" onclick="showCallVehicleModal()">呼叫行李车</button>
                                 </div>
                             </div>
                             
@@ -2161,6 +2185,37 @@
 
         function showActionFeedback(action) {
             alert(action + '指令已发送');
+        }
+
+        let vehicleCount = 4;
+
+        function showCallVehicleModal() {
+            vehicleCount = 4;
+            document.getElementById('vehicleCount').textContent = vehicleCount;
+            document.getElementById('callVehicleModal').style.display = 'flex';
+        }
+
+        function hideCallVehicleModal() {
+            document.getElementById('callVehicleModal').style.display = 'none';
+        }
+
+        function increaseVehicleCount() {
+            if (vehicleCount < 10) {
+                vehicleCount++;
+                document.getElementById('vehicleCount').textContent = vehicleCount;
+            }
+        }
+
+        function decreaseVehicleCount() {
+            if (vehicleCount > 1) {
+                vehicleCount--;
+                document.getElementById('vehicleCount').textContent = vehicleCount;
+            }
+        }
+
+        function confirmCallVehicle() {
+            alert('已成功呼叫 ' + vehicleCount + ' 辆行李车');
+            hideCallVehicleModal();
         }
 
         function showFlightPage() {
