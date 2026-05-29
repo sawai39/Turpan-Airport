@@ -120,26 +120,31 @@
         /* iPhone 15 Pro Max 样式 - 430 x 932 px */
         .iphone-container {
             width: 100%;
+            min-width: 320px;
             max-width: 430px;
-            min-height: 100vh;
+            min-height: 667px;
+            height: 100vh;
+            max-height: 932px;
             margin: 0 auto;
             background: #f8fafc;
-            border-radius: 0;
-            padding: 0;
-            box-shadow: none;
+            border-radius: 40px;
+            padding: 6px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             position: relative;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
         .iphone-screen {
             background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-            border-radius: 0;
+            border-radius: 35px;
             overflow: hidden;
             flex: 1;
             position: relative;
             display: flex;
             flex-direction: column;
+            min-height: 0;
         }
 
         .iphone-notch {
@@ -361,6 +366,35 @@
         .status-warning {
             background: #ef4444;
             color: #ef4444;
+        }
+
+        .mini-timeline {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .mini-timeline-item {
+            padding: 4px 10px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 11px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .mini-timeline-item.active {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        .mini-timeline-arrow {
+            font-size: 10px;
+            color: #cbd5e1;
+            margin: 0 2px;
         }
 
         .status-flow {
@@ -1188,6 +1222,96 @@
             font-weight: 600;
         }
 
+        /* 中台页面辅助样式 */
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-3 { gap: 12px; }
+        .gap-4 { gap: 16px; }
+        .gap-1 { gap: 4px; }
+        .flex-wrap { flex-wrap: wrap; }
+        .flex-1 { flex: 1; }
+        .min-w-\[250px\] { min-width: 250px; }
+        .relative { position: relative; }
+        .absolute { position: absolute; }
+        .right-3 { right: 12px; }
+        .top-1\/2 { top: 50%; }
+        .-\[translate-y-1\/2\] { transform: translateY(-50%); }
+        .w-full { width: 100%; }
+        .w-48 { width: 192px; }
+        .w-5 { width: 20px; }
+        .h-5 { height: 20px; }
+        .h-full { height: 100%; }
+        .px-4 { padding-left: 16px; padding-right: 16px; }
+        .px-3 { padding-left: 12px; padding-right: 12px; }
+        .px-2 { padding-left: 8px; padding-right: 8px; }
+        .px-2\.5 { padding-left: 10px; padding-right: 10px; }
+        .py-2 { padding-top: 8px; padding-bottom: 8px; }
+        .py-3 { padding-top: 12px; padding-bottom: 12px; }
+        .py-1 { padding-top: 4px; padding-bottom: 4px; }
+        .py-1\.5 { padding-top: 6px; padding-bottom: 6px; }
+        .py-0\.5 { padding-top: 2px; padding-bottom: 2px; }
+        .p-4 { padding: 16px; }
+        .mb-6 { margin-bottom: 24px; }
+        .text-left { text-align: left; }
+        .text-sm { font-size: 14px; }
+        .text-xs { font-size: 12px; }
+        .font-semibold { font-weight: 600; }
+        .font-medium { font-weight: 500; }
+        .rounded { border-radius: 8px; }
+        .rounded-lg { border-radius: 12px; }
+        .rounded-full { border-radius: 9999px; }
+        .border { border-width: 1px; }
+        .border-border-gray { border-color: #e0e0e0; }
+        .border-primary { border-color: #3b82f6; }
+        .border-neutral { border-color: #64748b; }
+        .border-error { border-color: #ef4444; }
+        .bg-primary { background-color: #3b82f6; }
+        .bg-primary\/10 { background-color: rgba(59, 130, 246, 0.1); }
+        .bg-success { background-color: #22c55e; }
+        .bg-warning { background-color: #f59e0b; }
+        .bg-error { background-color: #ef4444; }
+        .bg-error\/5 { background-color: rgba(239, 68, 68, 0.05); }
+        .bg-neutral { background-color: #64748b; }
+        .bg-bg-light { background-color: #f8f9fa; }
+        .bg-white { background-color: white; }
+        .text-primary { color: #3b82f6; }
+        .text-text-primary { color: #1e293b; }
+        .text-text-secondary { color: #64748b; }
+        .text-text-light { color: #94a3b8; }
+        .text-white { color: white; }
+        .transition-colors { transition-property: color, background-color, border-color; transition-duration: 0.2s; }
+        .hover\:bg-primary:hover { background-color: #3b82f6; }
+        .hover\:bg-primary-dark:hover { background-color: #2563eb; }
+        .hover\:bg-neutral:hover { background-color: #64748b; }
+        .hover\:bg-neutral\/80:hover { background-color: rgba(100, 116, 139, 0.8); }
+        .hover\:bg-error:hover { background-color: #ef4444; }
+        .hover\:bg-bg-light:hover { background-color: #f8f9fa; }
+        .hover\:text-primary:hover { color: #3b82f6; }
+        .hover\:text-white:hover { color: white; }
+        .hover\:border-primary:hover { border-color: #3b82f6; }
+        .focus\:outline-none:focus { outline: none; }
+        .focus\:border-primary:focus { border-color: #3b82f6; }
+        .sticky { position: sticky; }
+        .top-0 { top: 0; }
+        .overflow-x-auto { overflow-x: auto; }
+        .overflow-hidden { overflow: hidden; }
+        .shadow-sm { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); }
+        .divide-y > :not([hidden]) ~ :not([hidden]) { border-top-width: 1px; }
+        .divide-border-gray { border-color: #e0e0e0; }
+        .inline-flex { display: inline-flex; }
+        .cursor-pointer { cursor: pointer; }
+
+        /* 车辆详情弹窗样式 */
+        .w-4 { width: 16px; }
+        .h-4 { height: 16px; }
+        .w-20 { width: 80px; }
+        .h-2 { height: 8px; }
+        .w-24 { width: 96px; }
+        .h-24 { height: 96px; }
+        .bg-border-gray { background-color: #e0e0e0; }
+        .text-text-light { color: #94a3b8; }
+
         /* 响应式 */
         @media (max-width: 768px) {
             .floating-tabs {
@@ -1220,7 +1344,7 @@
         <button class="floating-tab-btn" onclick="switchTab('agv-tab')">AGV车载屏端</button>
     </div>
 
-    <div id="callVehicleModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+    <div id="callVehicleModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); align-items: center; justify-content: center; z-index: 1000;">
             <div style="background: white; border-radius: 24px; padding: 32px; width: 90%; max-width: 400px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);">
                 <div style="text-align: center; margin-bottom: 24px;">
                     <div style="font-size: 20px; font-weight: 700; color: #1e293b; margin-bottom: 8px;">呼叫行李车</div>
@@ -1240,6 +1364,321 @@
                 <div style="display: flex; gap: 12px;">
                     <button style="flex: 1; padding: 16px; background: #f1f5f9; color: #64748b; border: none; border-radius: 16px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s;" onclick="hideCallVehicleModal()" onmouseenter="this.style.background='#e2e8f0'">取消</button>
                     <button style="flex: 1; padding: 16px; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; border: none; border-radius: 16px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s;" onclick="confirmCallVehicle()" onmouseenter="this.style.transform='scale(1.02)'" onmouseleave="this.style.transform='scale(1)'">确认呼叫</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="vehicleDetailModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 1001; overflow-y: auto;">
+            <div style="margin: 40px auto; width: 90%; max-width: 1000px; background: white; border-radius: 12px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); overflow: hidden;">
+                <div style="background: white; border-bottom: 1px solid #e0e0e0; padding: 24px 24px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h2 style="color: #2c3e50; font-size: 20px; font-weight: 700;">车辆详情</h2>
+                        <p style="color: #666; font-size: 14px; margin-top: 4px;" id="vehicleDetailTitle">AGV-001 - 行李车1号</p>
+                    </div>
+                    <button onclick="closeVehicleDetailModal()" style="padding: 10px 20px; background: #f8f9fa; color: #666; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.3s;" onmouseenter="this.style.background='#e9ecef'">关闭</button>
+                </div>
+
+                <div style="padding: 24px;">
+                    <a href="#" onclick="closeVehicleDetailModal(); return false;" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: white; border: 1px solid #e0e0e0; border-radius: 8px; color: #333; text-decoration: none; font-size: 14px; margin-bottom: 24px;" onmouseenter="this.style.background='#f8f9fa'">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        返回车辆列表
+                    </a>
+
+                    <div style="background: white; border: 1px solid #e0e0e0; border-radius: 12px; padding: 24px; margin-bottom: 24px;">
+                        <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px;">
+                            <h3 style="font-size: 18px; font-weight: 600; color: #2c3e50;">基本信息</h3>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="px-3 py-1.5 text-xs font-medium text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors">编辑车辆</button>
+                                <button class="px-3 py-1.5 text-xs font-medium text-warning border border-warning rounded hover:bg-warning hover:text-white transition-colors">重启</button>
+                                <button class="px-3 py-1.5 text-xs font-medium text-error border border-error rounded hover:bg-error hover:text-white transition-colors">删除</button>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 24px;">
+                            <div style="width: 140px; height: 140px; background: #f8f9fa; border-radius: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid #e0e0e0; flex-shrink: 0;">
+                                <svg class="w-20 h-20 text-text-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                                </svg>
+                            </div>
+                            
+                            <div style="flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                                <div>
+                                    <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">车辆ID</label>
+                                    <p style="font-size: 14px; font-weight: 600; color: #333;" id="detail-vehicle-id">AGV-001</p>
+                                </div>
+                                <div>
+                                    <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">车辆名称</label>
+                                    <p style="font-size: 14px; font-weight: 600; color: #333;" id="detail-vehicle-name">行李车1号</p>
+                                </div>
+                                <div>
+                                    <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">型号</label>
+                                    <p style="font-size: 14px; font-weight: 600; color: #333;" id="detail-vehicle-model">AGV-C909</p>
+                                </div>
+                                <div>
+                                    <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">品牌</label>
+                                    <p style="font-size: 14px; font-weight: 600; color: #333;" id="detail-vehicle-brand">C909</p>
+                                </div>
+                                <div>
+                                    <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">状态</label>
+                                    <span id="detail-vehicle-status" class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-success text-white">空闲</span>
+                                </div>
+                                <div>
+                                    <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">电量</label>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <div class="w-24 h-2.5 bg-border-gray rounded-full overflow-hidden">
+                                            <div id="detail-battery-bar" class="h-full bg-success rounded-full" style="width: 85%"></div>
+                                        </div>
+                                        <span style="font-size: 14px; font-weight: 600; color: #333;" id="detail-battery">85%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #f0f0f0;">
+                            <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">位置</label>
+                            <p style="font-size: 14px; font-weight: 600; color: #333;" id="detail-location">航站楼A区</p>
+                        </div>
+                    </div>
+
+                    <div style="background: white; border: 1px solid #e0e0e0; border-radius: 12px; padding: 24px; margin-bottom: 24px;">
+                        <h3 style="font-size: 18px; font-weight: 600; color: #2c3e50; margin-bottom: 24px;">实时信息</h3>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px;">
+                                <h5 style="font-size: 14px; font-weight: 600; color: #2c3e50; margin-bottom: 12px; display: flex items-center gap: 8px;">
+                                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path>
+                                    </svg>
+                                    连接与任务
+                                </h5>
+                                <div style="display: flex justify-between; margin-bottom: 8px;">
+                                    <span style="font-size: 13px; color: #666;">连接状态</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #27ae60;">在线</span>
+                                </div>
+                                <div style="display: flex justify-between;">
+                                    <span style="font-size: 13px; color: #666;">当前任务</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;" id="detail-current-task">任务 #T001</span>
+                                </div>
+                            </div>
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px;">
+                                <h5 style="font-size: 14px; font-weight: 600; color: #2c3e50; margin-bottom: 12px; display: flex items-center gap: 8px;">
+                                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                    位置
+                                </h5>
+                                <div style="display: flex justify-between; margin-bottom: 8px;">
+                                    <span style="font-size: 13px; color: #666;">当前位置</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;">航站楼A区</span>
+                                </div>
+                                <div style="display: flex justify-between; margin-bottom: 8px;">
+                                    <span style="font-size: 13px; color: #666;">工作区域</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;">机场行李区</span>
+                                </div>
+                                <div style="display: flex justify-between;">
+                                    <span style="font-size: 13px; color: #666;">坐标</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;">X: 12.5, Y: 8.3</span>
+                                </div>
+                            </div>
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px;">
+                                <h5 style="font-size: 14px; font-weight: 600; color: #2c3e50; margin-bottom: 12px; display: flex items-center gap: 8px;">
+                                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                    电池与电源
+                                </h5>
+                                <div style="display: flex justify-between; margin-bottom: 8px;">
+                                    <span style="font-size: 13px; color: #666;">电量</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;" id="detail-battery-status">85%</span>
+                                </div>
+                                <div style="display: flex justify-between; margin-bottom: 8px;">
+                                    <span style="font-size: 13px; color: #666;">状态</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #f39c12;" id="detail-power-status">放电中</span>
+                                </div>
+                                <div style="display: flex justify-between; margin-bottom: 8px;">
+                                    <span style="font-size: 13px; color: #666;">剩余时间</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;">2小时30分</span>
+                                </div>
+                                <div style="display: flex justify-between;">
+                                    <span style="font-size: 13px; color: #666;">温度</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;">25°C</span>
+                                </div>
+                            </div>
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px;">
+                                <h5 style="font-size: 14px; font-weight: 600; color: #2c3e50; margin-bottom: 12px; display: flex items-center gap: 8px;">
+                                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                    </svg>
+                                    运动与安全
+                                </h5>
+                                <div style="display: flex justify-between; margin-bottom: 8px;">
+                                    <span style="font-size: 13px; color: #666;">当前速度</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;">0.8 m/s</span>
+                                </div>
+                                <div style="display: flex justify-between; margin-bottom: 8px;">
+                                    <span style="font-size: 13px; color: #666;">方向</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;">北</span>
+                                </div>
+                                <div style="display: flex justify-between; margin-bottom: 8px;">
+                                    <span style="font-size: 13px; color: #666;">安全状态</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #27ae60;">正常</span>
+                                </div>
+                                <div style="display: flex justify-between;">
+                                    <span style="font-size: 13px; color: #666;">急停状态</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #27ae60;">未激活</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: white; border: 1px solid #e0e0e0; border-radius: 12px; padding: 24px; margin-bottom: 24px;">
+                        <h3 style="font-size: 18px; font-weight: 600; color: #2c3e50; margin-bottom: 24px;">统计数据</h3>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px;">
+                                <h5 style="font-size: 14px; font-weight: 600; color: #666; margin-bottom: 16px;">里程数据</h5>
+                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                                    <div style="text-align: center;">
+                                        <p style="font-size: 28px; font-weight: 800; color: #3498db;">1,245</p>
+                                        <p style="font-size: 12px; color: #999; margin-top: 4px;">总里程 (m)</p>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <p style="font-size: 28px; font-weight: 800; color: #3498db;">48</p>
+                                        <p style="font-size: 12px; color: #999; margin-top: 4px;">运行时间 (h)</p>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <p style="font-size: 28px; font-weight: 800; color: #3498db;">0.6</p>
+                                        <p style="font-size: 12px; color: #999; margin-top: 4px;">平均速度 (m/s)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px;">
+                                <h5 style="font-size: 14px; font-weight: 600; color: #666; margin-bottom: 16px;">性能指标</h5>
+                                <div style="overflow-x-auto;">
+                                    <table style="width: 100%; font-size: 13px;">
+                                        <thead>
+                                            <tr style="border-bottom: 1px solid #e0e0e0;">
+                                                <th style="text-align: left; padding-bottom: 8px; color: #666; font-weight: 600;">任务类型</th>
+                                                <th style="text-align: right; padding-bottom: 8px; color: #666; font-weight: 600;">成功率</th>
+                                                <th style="text-align: right; padding-bottom: 8px; color: #666; font-weight: 600;">平均时长</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="border-bottom: 1px solid #e0e0e0;">
+                                                <td style="padding: 8px 0; color: #333;">飞速达</td>
+                                                <td style="text-align: right; padding: 8px 0; color: #27ae60; font-weight: 600;">98.5%</td>
+                                                <td style="text-align: right; padding: 8px 0; color: #333;">12.3 分钟</td>
+                                            </tr>
+                                            <tr style="border-bottom: 1px solid #e0e0e0;">
+                                                <td style="padding: 8px 0; color: #333;">配送</td>
+                                                <td style="text-align: right; padding: 8px 0; color: #27ae60; font-weight: 600;">99.1%</td>
+                                                <td style="text-align: right; padding: 8px 0; color: #333;">8.5 分钟</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 8px 0; color: #333;">机场行李</td>
+                                                <td style="text-align: right; padding: 8px 0; color: #27ae60; font-weight: 600;">97.8%</td>
+                                                <td style="text-align: right; padding: 8px 0; color: #333;">15.2 分钟</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: white; border: 1px solid #e0e0e0; border-radius: 12px; padding: 24px; margin-bottom: 24px;">
+                        <h3 style="font-size: 18px; font-weight: 600; color: #2c3e50; margin-bottom: 24px;">静态规格</h3>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px;">
+                                <h5 style="font-size: 14px; font-weight: 600; color: #666; margin-bottom: 16px;">物理尺寸</h5>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="font-size: 13px; color: #666;">长 x 宽 x 高</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;">500mm x 400mm x 350mm</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span style="font-size: 13px; color: #666;">转弯半径</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;">零（差速驱动）</span>
+                                </div>
+                            </div>
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px;">
+                                <h5 style="font-size: 14px; font-weight: 600; color: #666; margin-bottom: 16px;">运行能力</h5>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="font-size: 13px; color: #666;">最大速度（负载）</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;">1.2 m/s</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="font-size: 13px; color: #666;">最大速度（空载）</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;">1.5 m/s</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="font-size: 13px; color: #666;">最大负载</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;">50 kg</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span style="font-size: 13px; color: #666;">举升高度</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;">不适用</span>
+                                </div>
+                            </div>
+                            <div style="background: #f8f9fa; border-radius: 12px; padding: 20px;">
+                                <h5 style="font-size: 14px; font-weight: 600; color: #666; margin-bottom: 16px;">接口与连接</h5>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="font-size: 13px; color: #666;">通信协议</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;">WiFi 5GHz, 以太网</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="font-size: 13px; color: #666;">I/O端口</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;">2x USB, 1x RS-485</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="font-size: 13px; color: #666;">IP地址</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;">192.168.1.101</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span style="font-size: 13px; color: #666;">MAC地址</span>
+                                    <span style="font-size: 13px; font-weight: 600; color: #333;">00:1B:44:11:3A:B7</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: white; border: 1px solid #e0e0e0; border-radius: 12px; padding: 24px;">
+                        <h3 style="font-size: 18px; font-weight: 600; color: #2c3e50; margin-bottom: 24px;">最近活动</h3>
+                        <div style="overflow-x-auto;">
+                            <table style="width: 100%; font-size: 13px;">
+                                <thead>
+                                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                                        <th style="text-align: left; padding-bottom: 8px; padding-left: 16px; color: #666; font-weight: 600;">时间</th>
+                                        <th style="text-align: left; padding-bottom: 8px; color: #666; font-weight: 600;">活动</th>
+                                        <th style="text-align: left; padding-bottom: 8px; padding-right: 16px; color: #666; font-weight: 600;">详情</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                                        <td style="padding: 12px 16px; color: #333;">2026-05-18 09:30</td>
+                                        <td style="padding: 12px 0;">
+                                            <span style="display: inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-success/10 text-success">状态变更</span>
+                                        </td>
+                                        <td style="padding: 12px 16px; color: #666;">从空闲变为运输中</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                                        <td style="padding: 12px 16px; color: #333;">2026-05-18 09:25</td>
+                                        <td style="padding: 12px 0;">
+                                            <span style="display: inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary">任务分配</span>
+                                        </td>
+                                        <td style="padding: 12px 16px; color: #666;">分配任务 #T001</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 12px 16px; color: #333;">2026-05-18 08:45</td>
+                                        <td style="padding: 12px 0;">
+                                            <span style="display: inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-warning/10 text-warning">维护</span>
+                                        </td>
+                                        <td style="padding: 12px 16px; color: #666;">例行检查完成</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1390,50 +1829,131 @@
                             </div>
                             
                             <div style="margin-bottom: 16px;">
-                                <h4 style="color: #1e293b; font-size: 16px; font-weight: 700;">任务列表（点击查看详情）</h4>
+                                <h4 style="color: #1e293b; font-size: 16px; font-weight: 700;">任务列表</h4>
+                                <div style="font-size: 13px; color: #64748b; margin-top: 4px;">点击查看详情</div>
                             </div>
                             
-                            <div style="background: white; border-radius: 20px; padding: 0; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); overflow: hidden;">
-                                <div style="padding: 16px; border-bottom: 1px solid #e2e8f0; cursor: pointer;" onclick="showTaskDetailPage()">
+                            <div style="background: white; border-radius: 20px; padding: 0; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); overflow: hidden;">
+                                <div style="padding: 16px; border-bottom: 1px solid #e2e8f0;">
                                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                                        <div>
+                                        <div style="flex: 1; cursor: pointer;" onclick="showTaskDetailPage('T001')">
                                             <div style="font-size: 16px; font-weight: 700; color: #1e293b;">任务 T001</div>
                                             <div style="font-size: 13px; color: #64748b;">车辆: AGV-001 | 处理人员: 张三</div>
                                         </div>
-                                        <span style="padding: 6px 12px; background: rgba(59, 130, 246, 0.1); color: #3b82f6; border-radius: 16px; font-size: 12px; font-weight: 600;">配送中</span>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="padding: 6px 12px; background: rgba(59, 130, 246, 0.1); color: #3b82f6; border-radius: 16px; font-size: 12px; font-weight: 600;">配送中</span>
+                                            <button style="width: 28px; height: 28px; background: rgba(239, 68, 68, 0.1); color: #ef4444; border: none; border-radius: 50%; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;" onclick="showRemoveConfirmModal('T001', 'AGV-001')" title="移除车辆">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="mini-timeline">
+                                        <div class="mini-timeline-item active">装载中</div>
+                                        <div class="mini-timeline-arrow">→</div>
+                                        <div class="mini-timeline-item">配送中</div>
+                                        <div class="mini-timeline-arrow">→</div>
+                                        <div class="mini-timeline-item">已送达</div>
                                     </div>
                                 </div>
-                                <div style="padding: 16px; border-bottom: 1px solid #e2e8f0; cursor: pointer;" onclick="showTaskDetailPage()">
+                                <div style="padding: 16px; border-bottom: 1px solid #e2e8f0;">
                                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                                        <div>
+                                        <div style="flex: 1; cursor: pointer;" onclick="showTaskDetailPage('T002')">
                                             <div style="font-size: 16px; font-weight: 700; color: #1e293b;">任务 T002</div>
                                             <div style="font-size: 13px; color: #64748b;">车辆: AGV-002 | 处理人员: 李四</div>
                                         </div>
-                                        <span style="padding: 6px 12px; background: rgba(59, 130, 246, 0.1); color: #3b82f6; border-radius: 16px; font-size: 12px; font-weight: 600;">配送中</span>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="padding: 6px 12px; background: rgba(59, 130, 246, 0.1); color: #3b82f6; border-radius: 16px; font-size: 12px; font-weight: 600;">配送中</span>
+                                            <button style="width: 28px; height: 28px; background: rgba(239, 68, 68, 0.1); color: #ef4444; border: none; border-radius: 50%; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;" onclick="showRemoveConfirmModal('T002', 'AGV-002')" title="移除车辆">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="mini-timeline">
+                                        <div class="mini-timeline-item">待接单</div>
+                                        <div class="mini-timeline-arrow">→</div>
+                                        <div class="mini-timeline-item active">已接单</div>
+                                        <div class="mini-timeline-arrow">→</div>
+                                        <div class="mini-timeline-item">配送中</div>
                                     </div>
                                 </div>
-                                <div style="padding: 16px; border-bottom: 1px solid #e2e8f0; cursor: pointer;" onclick="showTaskDetailPage()">
+                                <div style="padding: 16px; border-bottom: 1px solid #e2e8f0;">
                                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                                        <div>
+                                        <div style="flex: 1; cursor: pointer;" onclick="showTaskDetailPage('T003')">
                                             <div style="font-size: 16px; font-weight: 700; color: #1e293b;">任务 T003</div>
                                             <div style="font-size: 13px; color: #64748b;">车辆: AGV-003 | 处理人员: -</div>
                                         </div>
                                         <span style="padding: 6px 12px; background: rgba(245, 158, 11, 0.1); color: #f59e0b; border-radius: 16px; font-size: 12px; font-weight: 600;">待接单</span>
                                     </div>
+                                    <div class="mini-timeline">
+                                        <div class="mini-timeline-item active">待接单</div>
+                                        <div class="mini-timeline-arrow">→</div>
+                                        <div class="mini-timeline-item">已接单</div>
+                                        <div class="mini-timeline-arrow">→</div>
+                                        <div class="mini-timeline-item">配送中</div>
+                                    </div>
                                 </div>
-                                <div style="padding: 16px; cursor: pointer;" onclick="showTaskDetailPage()">
+                                <div style="padding: 16px;">
                                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                                        <div>
+                                        <div style="flex: 1; cursor: pointer;" onclick="showTaskDetailPage('T004')">
                                             <div style="font-size: 16px; font-weight: 700; color: #1e293b;">任务 T004</div>
                                             <div style="font-size: 13px; color: #64748b;">车辆: AGV-004 | 处理人员: -</div>
                                         </div>
                                         <span style="padding: 6px 12px; background: rgba(245, 158, 11, 0.1); color: #f59e0b; border-radius: 16px; font-size: 12px; font-weight: 600;">待接单</span>
                                     </div>
+                                    <div class="mini-timeline">
+                                        <div class="mini-timeline-item active">待接单</div>
+                                        <div class="mini-timeline-arrow">→</div>
+                                        <div class="mini-timeline-item">已接单</div>
+                                        <div class="mini-timeline-arrow">→</div>
+                                        <div class="mini-timeline-item">配送中</div>
+                                    </div>
                                 </div>
                             </div>
                             
+                            <button style="width: 100%; padding: 14px; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: transform 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;" onmouseenter="this.style.transform='scale(1.02)'" onmouseleave="this.style.transform='scale(1)'" onclick="showAddVehicleModal()">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                </svg>
+                                添加车辆
+                            </button>
+                            
                             <div style="display: flex; gap: 12px; padding-bottom: 20px;">
                                 <button class="btn-action-secondary" style="flex: 1;">取消订单</button>
+                            </div>
+                        </div>
+
+                        <div id="removeConfirmModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 1002; align-items: center; justify-content: center;">
+                            <div style="width: 85%; max-width: 320px; background: white; border-radius: 20px; padding: 24px; text-align: center;">
+                                <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
+                                <h3 style="font-size: 18px; font-weight: 700; color: #1e293b; margin-bottom: 8px;">确认移除</h3>
+                                <p style="font-size: 14px; color: #64748b; margin-bottom: 24px;" id="removeConfirmText">确定要移除该车辆吗？</p>
+                                <div style="display: flex; gap: 12px;">
+                                    <button style="flex: 1; padding: 12px; background: #f1f5f9; color: #64748b; border: none; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer;" onclick="closeRemoveConfirmModal()">取消</button>
+                                    <button style="flex: 1; padding: 12px; background: #ef4444; color: white; border: none; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer;" onclick="confirmRemoveVehicle()">确认移除</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="addVehicleModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 1002; align-items: center; justify-content: center;">
+                            <div style="width: 85%; max-width: 320px; background: white; border-radius: 20px; padding: 24px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                    <h3 style="font-size: 18px; font-weight: 700; color: #1e293b;">添加车辆</h3>
+                                    <button style="width: 28px; height: 28px; background: #f1f5f9; color: #64748b; border: none; border-radius: 50%; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center;" onclick="closeAddVehicleModal()">×</button>
+                                </div>
+                                <div style="margin-bottom: 16px;">
+                                    <label style="display: block; font-size: 13px; color: #64748b; margin-bottom: 8px;">选择车辆</label>
+                                    <select style="width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 14px; outline: none; background: white;" id="addVehicleSelect">
+                                        <option value="">请选择车辆</option>
+                                        <option value="AGV-005">AGV-005 - 行李车5号</option>
+                                        <option value="AGV-006">AGV-006 - 行李车6号</option>
+                                        <option value="AGV-007">AGV-007 - 行李车7号</option>
+                                    </select>
+                                </div>
+                                <button style="width: 100%; padding: 14px; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer;" onclick="confirmAddVehicle()">确认添加</button>
                             </div>
                         </div>
                         
@@ -1541,69 +2061,162 @@
                         </div>
 
                         <div id="vehiclePage" style="display: none;">
-                            <h3 style="color: #1e293b; font-size: 20px; font-weight: 700; margin-bottom: 20px;">车辆状态监控</h3>
-                            
-                            <div style="background: white; border-radius: 20px; padding: 16px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
-                                <div style="display: flex; gap: 12px;">
-                                    <input type="text" placeholder="搜索车辆编号" style="flex: 1; padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 14px; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='#3b82f6'" onblur="this.style.borderColor='#e2e8f0'">
-                                    <button style="padding: 12px 24px; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; border: none; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: transform 0.2s;" onclick="this.style.transform='scale(0.98)'; setTimeout(()=>this.style.transform='scale(1)', 100)">查询</button>
+                            <div id="vehicleListPage">
+                                <div style="display: flex; align-items: center; justify-between; margin-bottom: 20px;">
+                                    <h3 style="color: #1e293b; font-size: 20px; font-weight: 700;">车辆列表</h3>
+                                    <span style="color: #3b82f6; font-size: 14px; font-weight: 600;">共 4 辆</span>
                                 </div>
-                            </div>
-                            
-                            <div class="map-area">
-                                <span style="font-size: 14px; color: #64748b; font-weight: 600;">机场区域</span>
-                                <div class="map-dot idle" style="top: 50px; left: 80px;"></div>
-                                <div class="map-label" style="top: 70px; left: 65px;">AGV-001</div>
-                                <div class="map-dot working" style="top: 100px; left: 160px;"></div>
-                                <div class="map-label" style="top: 120px; left: 145px;">AGV-002</div>
-                                <div class="map-dot charging" style="top: 60px; left: 240px;"></div>
-                                <div class="map-label" style="top: 80px; left: 225px;">AGV-003</div>
-                            </div>
-                            
-                            <div style="background: white; border-radius: 20px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
-                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
-                                    <div style="font-size: 18px; font-weight: 700; color: #1e293b;">AGV-002</div>
-                                    <span style="padding: 4px 12px; background: rgba(59, 130, 246, 0.1); color: #3b82f6; border-radius: 20px; font-size: 12px; font-weight: 600;">运输中</span>
-                                </div>
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                                    <div style="background: #f8fafc; border-radius: 12px; padding: 12px;">
-                                        <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">电量</div>
-                                        <div style="font-size: 18px; font-weight: 700; color: #22c55e;">75%</div>
-                                    </div>
-                                    <div style="background: #f8fafc; border-radius: 12px; padding: 12px;">
-                                        <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">当前任务</div>
-                                        <div style="font-size: 12px; font-weight: 600; color: #1e293b;">MU5101 行李下机</div>
+                                
+                                <div style="background: white; border-radius: 20px; padding: 16px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
+                                    <div style="display: flex; gap: 12px;">
+                                        <input type="text" id="appVehicleSearch" placeholder="搜索车辆编号或名称" style="flex: 1; padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 14px; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='#3b82f6'" onblur="this.style.borderColor='#e2e8f0'">
+                                        <button style="padding: 12px 24px; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; border: none; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: transform 0.2s;" onclick="searchAppVehicles()">查询</button>
                                     </div>
                                 </div>
+                                
+                                <div style="background: white; border-radius: 20px; padding: 0; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); overflow: hidden;">
+                                    <div style="padding: 16px; border-bottom: 1px solid #e2e8f0; cursor: pointer;" onclick="showVehicleDetailPage('AGV-001')">
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <div>
+                                                <div style="font-size: 16px; font-weight: 700; color: #1e293b;">AGV-001</div>
+                                                <div style="font-size: 13px; color: #64748b;">行李车1号 | 航站楼A区</div>
+                                            </div>
+                                            <div style="display: flex; align-items: center; gap: 12px;">
+                                                <div style="display: flex; align-items: center; gap: 4px;">
+                                                    <div class="w-12 h-2 bg-border-gray rounded-full overflow-hidden">
+                                                        <div class="h-full bg-success rounded-full" style="width: 85%"></div>
+                                                    </div>
+                                                    <span style="font-size: 13px; font-weight: 600; color: #22c55e;">85%</span>
+                                                </div>
+                                                <span style="padding: 4px 12px; background: rgba(34, 197, 94, 0.1); color: #22c55e; border-radius: 16px; font-size: 12px; font-weight: 600;">在线</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="padding: 16px; border-bottom: 1px solid #e2e8f0; cursor: pointer;" onclick="showVehicleDetailPage('AGV-002')">
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <div>
+                                                <div style="font-size: 16px; font-weight: 700; color: #1e293b;">AGV-002</div>
+                                                <div style="font-size: 13px; color: #64748b;">行李车2号 | 机位239</div>
+                                            </div>
+                                            <div style="display: flex; align-items: center; gap: 12px;">
+                                                <div style="display: flex; align-items: center; gap: 4px;">
+                                                    <div class="w-12 h-2 bg-border-gray rounded-full overflow-hidden">
+                                                        <div class="h-full bg-success rounded-full" style="width: 70%"></div>
+                                                    </div>
+                                                    <span style="font-size: 13px; font-weight: 600; color: #22c55e;">70%</span>
+                                                </div>
+                                                <span style="padding: 4px 12px; background: rgba(59, 130, 246, 0.1); color: #3b82f6; border-radius: 16px; font-size: 12px; font-weight: 600;">运输中</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="padding: 16px; border-bottom: 1px solid #e2e8f0; cursor: pointer;" onclick="showVehicleDetailPage('AGV-003')">
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <div>
+                                                <div style="font-size: 16px; font-weight: 700; color: #1e293b;">AGV-003</div>
+                                                <div style="font-size: 13px; color: #64748b;">行李车3号 | 充电站#2</div>
+                                            </div>
+                                            <div style="display: flex; align-items: center; gap: 12px;">
+                                                <div style="display: flex; align-items: center; gap: 4px;">
+                                                    <div class="w-12 h-2 bg-border-gray rounded-full overflow-hidden">
+                                                        <div class="h-full bg-warning rounded-full" style="width: 25%"></div>
+                                                    </div>
+                                                    <span style="font-size: 13px; font-weight: 600; color: #f59e0b;">25%</span>
+                                                </div>
+                                                <span style="padding: 4px 12px; background: rgba(245, 158, 11, 0.1); color: #f59e0b; border-radius: 16px; font-size: 12px; font-weight: 600;">充电中</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="padding: 16px; cursor: pointer;" onclick="showVehicleDetailPage('AGV-004')">
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <div>
+                                                <div style="font-size: 16px; font-weight: 700; color: #1e293b;">AGV-004</div>
+                                                <div style="font-size: 13px; color: #64748b;">行李车4号 | 维修区</div>
+                                            </div>
+                                            <div style="display: flex; align-items: center; gap: 12px;">
+                                                <div style="display: flex; align-items: center; gap: 4px;">
+                                                    <div class="w-12 h-2 bg-border-gray rounded-full overflow-hidden">
+                                                        <div class="h-full bg-error rounded-full" style="width: 45%"></div>
+                                                    </div>
+                                                    <span style="font-size: 13px; font-weight: 600; color: #ef4444;">45%</span>
+                                                </div>
+                                                <span style="padding: 4px 12px; background: rgba(239, 68, 68, 0.1); color: #ef4444; border-radius: 16px; font-size: 12px; font-weight: 600;">离线</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             
-                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
-                                <button class="vehicle-btn" onclick="showActionFeedback('鸣笛')">
-                                    <span>🔊</span>
-                                    <span>鸣笛</span>
-                                </button>
-                                <button class="vehicle-btn" onclick="showActionFeedback('开灯')">
-                                    <span>💡</span>
-                                    <span>开灯</span>
-                                </button>
-                                <button class="vehicle-btn" onclick="showActionFeedback('刹车')">
-                                    <span>🛑</span>
-                                    <span>刹车</span>
-                                </button>
-                                <button class="vehicle-btn warning" onclick="showActionFeedback('暂停')">
-                                    <span>⏸️</span>
-                                    <span>暂停</span>
-                                </button>
-                                <button class="vehicle-btn success" onclick="showActionFeedback('继续')">
-                                    <span>▶️</span>
-                                    <span>继续</span>
-                                </button>
-                                <button class="vehicle-btn danger" onclick="showActionFeedback('急停')">
-                                    <span>⚠️</span>
-                                    <span>急停</span>
-                                </button>
+                            <div id="vehicleDetailPage" style="display: none;">
+                                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                                    <span style="cursor: pointer; color: #3b82f6; font-weight: 600; font-size: 16px;" onclick="showAppVehicleList()">← 返回</span>
+                                    <h3 style="color: #1e293b; font-size: 20px; font-weight: 700;">车辆详情</h3>
+                                </div>
+                                
+                                <div style="background: white; border-radius: 20px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
+                                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                                        <div>
+                                            <div style="font-size: 20px; font-weight: 800; color: #1e293b;" id="appVehicleId">AGV-002</div>
+                                            <div style="font-size: 14px; color: #64748b;" id="appVehicleName">行李车2号</div>
+                                        </div>
+                                        <span id="appVehicleStatus" style="padding: 6px 16px; background: rgba(59, 130, 246, 0.1); color: #3b82f6; border-radius: 20px; font-size: 13px; font-weight: 600;">运输中</span>
+                                    </div>
+                                    
+                                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                                        <div style="background: #f8fafc; border-radius: 12px; padding: 12px;">
+                                            <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">电量</div>
+                                            <div style="font-size: 18px; font-weight: 700; color: #22c55e;" id="appVehicleBattery">75%</div>
+                                        </div>
+                                        <div style="background: #f8fafc; border-radius: 12px; padding: 12px;">
+                                            <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">当前任务</div>
+                                            <div style="font-size: 12px; font-weight: 600; color: #1e293b;" id="appVehicleTask">MU5101 行李下机</div>
+                                        </div>
+                                        <div style="background: #f8fafc; border-radius: 12px; padding: 12px;">
+                                            <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">当前位置</div>
+                                            <div style="font-size: 12px; font-weight: 600; color: #1e293b;" id="appVehicleLocation">机位239</div>
+                                        </div>
+                                        <div style="background: #f8fafc; border-radius: 12px; padding: 12px;">
+                                            <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">型号</div>
+                                            <div style="font-size: 12px; font-weight: 600; color: #1e293b;">AGV-C909</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div style="background: white; border-radius: 20px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
+                                    <div style="font-size: 14px; color: #64748b; margin-bottom: 16px; font-weight: 600;">实时状态</div>
+                                    <div class="map-area" style="margin-bottom: 0; min-height: 150px;">
+                                        <div class="map-dot working" style="top: 60px; left: 50%; transform: translateX(-50%);"></div>
+                                        <div class="map-label" style="top: 85px; left: 50%; transform: translateX(-50%);" id="appVehicleMapLabel">AGV-002</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+                                    <button class="vehicle-btn" onclick="showActionFeedback('鸣笛')">
+                                        <span>🔊</span>
+                                        <span>鸣笛</span>
+                                    </button>
+                                    <button class="vehicle-btn" onclick="showActionFeedback('开灯')">
+                                        <span>💡</span>
+                                        <span>开灯</span>
+                                    </button>
+                                    <button class="vehicle-btn" onclick="showActionFeedback('刹车')">
+                                        <span>🛑</span>
+                                        <span>刹车</span>
+                                    </button>
+                                    <button class="vehicle-btn warning" onclick="showActionFeedback('暂停')">
+                                        <span>⏸️</span>
+                                        <span>暂停</span>
+                                    </button>
+                                    <button class="vehicle-btn success" onclick="showActionFeedback('继续')">
+                                        <span>▶️</span>
+                                        <span>继续</span>
+                                    </button>
+                                    <button class="vehicle-btn danger" onclick="showActionFeedback('急停')">
+                                        <span>⚠️</span>
+                                        <span>急停</span>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        </div></function></seed:tool_call>
 
                         <div id="messagePage" style="display: none;">
                             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
@@ -1747,13 +2360,14 @@
                 
                 <div class="desktop-body">
                     <div class="desktop-sidebar">
-                        <div style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                            <h1 style="color: white; font-size: 14px; font-weight: 600; line-height: 1.4;">C909无人行李车<br/>调度中心</h1>
+                        <div style="padding: 24px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div style="color: white; font-size: 20px; font-weight: 700; line-height: 1.4; letter-spacing: 1px;">C909无人行李车调度中心</div>
                         </div>
-                        <div style="padding: 4px 0;">
+                        <div style="padding: 8px 0;">
                             <div class="sidebar-item active" onclick="showDesktopPanel('monitor')">大屏监控</div>
                             <div class="sidebar-item" onclick="showDesktopPanel('vehicle')">车辆管理</div>
-                            <div class="sidebar-item" onclick="showDesktopPanel('task')">任务调度</div>
+                            <div class="sidebar-item" onclick="showDesktopPanel('order')">订单管理</div>
+                            <div class="sidebar-item" onclick="showDesktopPanel('task')">任务列表</div>
                             <div class="sidebar-item" onclick="showDesktopPanel('config')">系统配置</div>
                         </div>
                         <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
@@ -1799,187 +2413,643 @@
                         </div>
 
                         <div id="vehiclePanel" style="display: none;">
-                            <div style="display: flex; gap: 12px; margin-bottom: 24px;">
-                                <button class="filter-btn" style="padding: 12px 24px; font-size: 14px;">全部车辆</button>
-                                <button class="filter-btn" style="padding: 12px 24px; font-size: 14px; background: #3b82f6; color: white; border-color: #3b82f6;">空闲车辆</button>
-                                <button class="filter-btn" style="padding: 12px 24px; font-size: 14px;">故障车辆</button>
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="flex items-center gap-3">
+                                    <button onclick="openAddVehicleModal()" class="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors flex items-center gap-2 font-medium">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                        </svg>
+                                        添加车辆
+                                    </button>
+                                    <button class="bg-neutral text-white px-4 py-2 rounded hover:bg-neutral/80 transition-colors flex items-center gap-2 font-medium">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                        </svg>
+                                        刷新
+                                    </button>
+                                </div>
+                                <p class="text-text-secondary text-sm">共 <span class="font-semibold text-text-primary">8</span> 台车辆</p>
                             </div>
-                            
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>车辆ID</th>
-                                        <th>状态</th>
-                                        <th>电量</th>
-                                        <th>累计里程</th>
-                                        <th>累计次数</th>
-                                        <th>操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>AGV-001</td>
-                                        <td><span style="color: #22c55e; font-weight: 700;">空闲</span></td>
-                                        <td>85%</td>
-                                        <td>1250km</td>
-                                        <td>3250</td>
-                                        <td>
-                                            <button class="table-btn">详情</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>AGV-002</td>
-                                        <td><span style="color: #3b82f6; font-weight: 700;">运输中</span></td>
-                                        <td>70%</td>
-                                        <td>1890km</td>
-                                        <td>4120</td>
-                                        <td>
-                                            <button class="table-btn">详情</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>AGV-003</td>
-                                        <td><span style="color: #f59e0b; font-weight: 700;">充电</span></td>
-                                        <td>25%</td>
-                                        <td>2100km</td>
-                                        <td>5080</td>
-                                        <td>
-                                            <button class="table-btn">详情</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>AGV-004</td>
-                                        <td><span style="color: #ef4444; font-weight: 700;">故障</span></td>
-                                        <td>45%</td>
-                                        <td>1560km</td>
-                                        <td>2890</td>
-                                        <td>
-                                            <button class="table-btn danger">维修</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            
-                            <div style="margin-top: 24px; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
-                                <span style="color: #64748b; font-size: 15px; font-weight: 600;">选中车辆操作:</span>
-                                <button class="table-btn" style="margin-left: 20px;">前往充电点</button>
-                                <button class="table-btn danger">紧急制动</button>
-                                <button class="table-btn">返回停车点</button>
+
+                            <div class="bg-white rounded-lg shadow-sm border border-border-gray p-4 mb-6">
+                                <div class="flex flex-wrap gap-4">
+                                    <div class="flex-1 min-w-[250px]">
+                                        <div class="relative">
+                                            <input type="text" placeholder="搜索车辆..." class="w-full border border-border-gray rounded px-4 py-2 pr-10 focus:outline-none focus:border-primary transition-colors">
+                                            <button class="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-primary transition-colors">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="w-48">
+                                        <select class="w-full border border-border-gray rounded px-4 py-2 focus:outline-none focus:border-primary transition-colors bg-white">
+                                            <option>所有类型</option>
+                                            <option>机器人</option>
+                                            <option>电梯</option>
+                                            <option>门</option>
+                                        </select>
+                                    </div>
+                                    <div class="w-48">
+                                        <select class="w-full border border-border-gray rounded px-4 py-2 focus:outline-none focus:border-primary transition-colors bg-white">
+                                            <option>所有状态</option>
+                                            <option>在线</option>
+                                            <option>离线</option>
+                                            <option>维护中</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-lg shadow-sm border border-border-gray overflow-hidden">
+                                <div class="overflow-x-auto">
+                                    <table class="w-full">
+                                        <thead class="bg-bg-light sticky top-0">
+                                            <tr>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">车辆ID</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">车辆名称</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">类型</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">型号</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">品牌</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">状态</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">电量</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">当前任务</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">位置</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-border-gray">
+                                            <tr class="hover:bg-bg-light cursor-pointer transition-colors" onclick="showVehicleDetail('AGV-001')">
+                                                <td class="px-4 py-3 text-sm text-primary font-medium">AGV-001</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">行李车1号</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary">机器人</span>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">AGV-C909</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">C909</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-success text-white">在线</span>
+                                                </td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center gap-2">
+                                                        <div class="w-16 h-2 bg-border-gray rounded-full overflow-hidden">
+                                                            <div class="h-full bg-success rounded-full" style="width: 85%"></div>
+                                                        </div>
+                                                        <span class="text-xs font-medium text-text-primary">85%</span>
+                                                    </div>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">任务 #T001</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">航站楼A区</td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center gap-2">
+                                                        <button onclick="event.stopPropagation(); showVehicleDetail('AGV-001')" class="px-3 py-1.5 text-xs font-medium text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors">查看</button>
+                                                        <button onclick="event.stopPropagation();" class="px-3 py-1.5 text-xs font-medium text-neutral border border-neutral rounded hover:bg-neutral hover:text-white transition-colors">编辑</button>
+                                                        <button onclick="event.stopPropagation();" class="px-3 py-1.5 text-xs font-medium text-error border border-error rounded hover:bg-error hover:text-white transition-colors">删除</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="hover:bg-bg-light cursor-pointer transition-colors" onclick="showVehicleDetail('AGV-002')">
+                                                <td class="px-4 py-3 text-sm text-primary font-medium">AGV-002</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">行李车2号</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary">机器人</span>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">AGV-C909</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">C909</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-success text-white">在线</span>
+                                                </td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center gap-2">
+                                                        <div class="w-16 h-2 bg-border-gray rounded-full overflow-hidden">
+                                                            <div class="h-full bg-success rounded-full" style="width: 70%"></div>
+                                                        </div>
+                                                        <span class="text-xs font-medium text-text-primary">70%</span>
+                                                    </div>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">任务 #T002</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">机位239</td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center gap-2">
+                                                        <button onclick="event.stopPropagation(); showVehicleDetail('AGV-002')" class="px-3 py-1.5 text-xs font-medium text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors">查看</button>
+                                                        <button onclick="event.stopPropagation();" class="px-3 py-1.5 text-xs font-medium text-neutral border border-neutral rounded hover:bg-neutral hover:text-white transition-colors">编辑</button>
+                                                        <button onclick="event.stopPropagation();" class="px-3 py-1.5 text-xs font-medium text-error border border-error rounded hover:bg-error hover:text-white transition-colors">删除</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="hover:bg-bg-light cursor-pointer transition-colors" onclick="showVehicleDetail('AGV-003')">
+                                                <td class="px-4 py-3 text-sm text-primary font-medium">AGV-003</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">行李车3号</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary">机器人</span>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">AGV-C909</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">C909</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-warning text-white">充电中</span>
+                                                </td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center gap-2">
+                                                        <div class="w-16 h-2 bg-border-gray rounded-full overflow-hidden">
+                                                            <div class="h-full bg-warning rounded-full" style="width: 25%"></div>
+                                                        </div>
+                                                        <span class="text-xs font-medium text-warning">25%</span>
+                                                    </div>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-text-light">-</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">充电站#2</td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center gap-2">
+                                                        <button onclick="event.stopPropagation(); showVehicleDetail('AGV-003')" class="px-3 py-1.5 text-xs font-medium text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors">查看</button>
+                                                        <button onclick="event.stopPropagation();" class="px-3 py-1.5 text-xs font-medium text-neutral border border-neutral rounded hover:bg-neutral hover:text-white transition-colors">编辑</button>
+                                                        <button onclick="event.stopPropagation();" class="px-3 py-1.5 text-xs font-medium text-error border border-error rounded hover:bg-error hover:text-white transition-colors">删除</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="hover:bg-bg-light cursor-pointer transition-colors bg-error/5" onclick="showVehicleDetail('AGV-004')">
+                                                <td class="px-4 py-3 text-sm text-primary font-medium">AGV-004</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">行李车4号</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary">机器人</span>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">AGV-C909</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">C909</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-error text-white">离线</span>
+                                                </td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center gap-2">
+                                                        <div class="w-16 h-2 bg-border-gray rounded-full overflow-hidden">
+                                                            <div class="h-full bg-error rounded-full" style="width: 45%"></div>
+                                                        </div>
+                                                        <span class="text-xs font-medium text-error">45%</span>
+                                                    </div>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-text-light">-</td>
+                                                <td class="px-4 py-3 text-sm text-text-light">维修区</td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center gap-2">
+                                                        <button onclick="event.stopPropagation(); showVehicleDetail('AGV-004')" class="px-3 py-1.5 text-xs font-medium text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors">查看</button>
+                                                        <button onclick="event.stopPropagation();" class="px-3 py-1.5 text-xs font-medium text-neutral border border-neutral rounded hover:bg-neutral hover:text-white transition-colors">编辑</button>
+                                                        <button onclick="event.stopPropagation();" class="px-3 py-1.5 text-xs font-medium text-error border border-error rounded hover:bg-error hover:text-white transition-colors">删除</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="px-4 py-3 border-t border-border-gray flex items-center justify-between">
+                                    <p class="text-sm text-text-secondary">显示第 <span class="font-medium text-text-primary">1</span> 至 <span class="font-medium text-text-primary">4</span> 条，共 <span class="font-medium text-text-primary">8</span> 条</p>
+                                    <div class="flex items-center gap-1">
+                                        <button class="px-3 py-1.5 text-sm border border-border-gray rounded hover:bg-bg-light transition-colors text-text-secondary">上一页</button>
+                                        <button class="px-3 py-1.5 text-sm rounded bg-primary text-white font-medium">1</button>
+                                        <button class="px-3 py-1.5 text-sm border border-border-gray rounded hover:bg-bg-light transition-colors">2</button>
+                                        <button class="px-3 py-1.5 text-sm border border-border-gray rounded hover:bg-bg-light transition-colors text-text-secondary">下一页</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="orderPanel" style="display: none;">
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="flex items-center gap-3">
+                                    <button onclick="createOrder()" class="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors flex items-center gap-2 font-medium">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                        </svg>
+                                        创建订单
+                                    </button>
+                                    <button class="bg-neutral text-white px-4 py-2 rounded hover:bg-neutral/80 transition-colors flex items-center gap-2 font-medium">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                        </svg>
+                                        刷新
+                                    </button>
+                                </div>
+                                <p class="text-text-secondary text-sm">共 <span class="font-semibold text-text-primary">12</span> 个订单</p>
+                            </div>
+
+                            <div class="bg-white rounded-lg shadow-sm border border-border-gray p-4 mb-6">
+                                <div class="flex flex-wrap gap-4">
+                                    <div class="flex-1 min-w-[250px]">
+                                        <div class="relative">
+                                            <input type="text" id="orderSearchInput" placeholder="搜索航班号、订单ID..." class="w-full border border-border-gray rounded px-4 py-2 pr-10 focus:outline-none focus:border-primary transition-colors">
+                                            <button class="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-primary transition-colors" onclick="searchOrders()">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="w-48">
+                                        <select class="w-full border border-border-gray rounded px-4 py-2 focus:outline-none focus:border-primary transition-colors bg-white">
+                                            <option>全部状态</option>
+                                            <option>待分配</option>
+                                            <option>进行中</option>
+                                            <option>已完成</option>
+                                            <option>已取消</option>
+                                        </select>
+                                    </div>
+                                    <div class="w-48">
+                                        <select class="w-full border border-border-gray rounded px-4 py-2 focus:outline-none focus:border-primary transition-colors bg-white">
+                                            <option>全部类型</option>
+                                            <option>行李下机</option>
+                                            <option>行李上机</option>
+                                            <option>行李转运</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-lg shadow-sm border border-border-gray overflow-hidden">
+                                <div class="overflow-x-auto">
+                                    <table class="w-full">
+                                        <thead class="bg-bg-light sticky top-0">
+                                            <tr>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">订单ID</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">航班号</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">航司</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">机型</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">机位</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">类型</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">状态</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">行李件数</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">创建时间</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-border-gray">
+                                            <tr class="hover:bg-bg-light cursor-pointer transition-colors" onclick="showOrderDetailPage('O20260518001')">
+                                                <td class="px-4 py-3 text-sm text-primary font-medium">O20260518001</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary font-medium">GJ 8652</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">南方航空</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">B738</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">239</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary">行李下机</span>
+                                                </td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary text-white">进行中</span>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">136</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">2026-05-18 09:25</td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center gap-2">
+                                                        <button onclick="event.stopPropagation(); showOrderDetailPage('O20260518001')" class="px-3 py-1.5 text-xs font-medium text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors">详情</button>
+                                                        <button onclick="event.stopPropagation();" class="px-3 py-1.5 text-xs font-medium text-error border border-error rounded hover:bg-error hover:text-white transition-colors">取消</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="hover:bg-bg-light cursor-pointer transition-colors" onclick="showOrderDetailPage('O20260518002')">
+                                                <td class="px-4 py-3 text-sm text-primary font-medium">O20260518002</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary font-medium">MU 5101</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">东方航空</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">C909</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">A12</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary">行李上机</span>
+                                                </td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary text-white">进行中</span>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">128</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">2026-05-18 10:15</td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center gap-2">
+                                                        <button onclick="event.stopPropagation(); showOrderDetailPage('O20260518002')" class="px-3 py-1.5 text-xs font-medium text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors">详情</button>
+                                                        <button onclick="event.stopPropagation();" class="px-3 py-1.5 text-xs font-medium text-error border border-error rounded hover:bg-error hover:text-white transition-colors">取消</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="hover:bg-bg-light cursor-pointer transition-colors" onclick="showOrderDetailPage('O20260518003')">
+                                                <td class="px-4 py-3 text-sm text-primary font-medium">O20260518003</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary font-medium">HU 7890</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">海南航空</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">B738</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">C15</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary">行李下机</span>
+                                                </td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-success text-white">已完成</span>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">115</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">2026-05-18 08:30</td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center gap-2">
+                                                        <button onclick="event.stopPropagation(); showOrderDetailPage('O20260518003')" class="px-3 py-1.5 text-xs font-medium text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors">详情</button>
+                                                        <button onclick="event.stopPropagation();" class="px-3 py-1.5 text-xs font-medium text-neutral border border-neutral rounded hover:bg-neutral hover:text-white transition-colors">导出</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="hover:bg-bg-light cursor-pointer transition-colors" onclick="showOrderDetailPage('O20260518004')">
+                                                <td class="px-4 py-3 text-sm text-primary font-medium">O20260518004</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary font-medium">CA 1234</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">中国国航</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">A320</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">D08</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-warning/10 text-warning">行李转运</span>
+                                                </td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-warning text-white">待分配</span>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">89</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">2026-05-18 11:00</td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center gap-2">
+                                                        <button onclick="event.stopPropagation(); showOrderDetailPage('O20260518004')" class="px-3 py-1.5 text-xs font-medium text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors">详情</button>
+                                                        <button onclick="event.stopPropagation();" class="px-3 py-1.5 text-xs font-medium text-error border border-error rounded hover:bg-error hover:text-white transition-colors">取消</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="px-4 py-3 border-t border-border-gray flex items-center justify-between">
+                                    <p class="text-sm text-text-secondary">显示第 <span class="font-medium text-text-primary">1</span> 至 <span class="font-medium text-text-primary">4</span> 条，共 <span class="font-medium text-text-primary">12</span> 条</p>
+                                    <div class="flex items-center gap-1">
+                                        <button class="px-3 py-1.5 text-sm border border-border-gray rounded hover:bg-bg-light transition-colors text-text-secondary">上一页</button>
+                                        <button class="px-3 py-1.5 text-sm rounded bg-primary text-white font-medium">1</button>
+                                        <button class="px-3 py-1.5 text-sm border border-border-gray rounded hover:bg-bg-light transition-colors">2</button>
+                                        <button class="px-3 py-1.5 text-sm border border-border-gray rounded hover:bg-bg-light transition-colors">3</button>
+                                        <button class="px-3 py-1.5 text-sm border border-border-gray rounded hover:bg-bg-light transition-colors text-text-secondary">下一页</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <div id="taskPanel" style="display: none;">
-                            <div style="display: flex; gap: 12px; margin-bottom: 24px;">
-                                <button class="btn-primary" style="padding: 14px 28px; font-size: 15px;">创建订单</button>
-                                <button class="btn-secondary" style="padding: 14px 28px; font-size: 15px;">导出订单</button>
-                                <button class="btn-secondary" style="padding: 14px 28px; font-size: 15px;">订单列表</button>
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="flex items-center gap-3">
+                                    <button onclick="createTask()" class="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors flex items-center gap-2 font-medium">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                        </svg>
+                                        创建任务
+                                    </button>
+                                    <button class="bg-neutral text-white px-4 py-2 rounded hover:bg-neutral/80 transition-colors flex items-center gap-2 font-medium">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                        </svg>
+                                        刷新
+                                    </button>
+                                </div>
+                                <p class="text-text-secondary text-sm">共 <span class="font-semibold text-text-primary">15</span> 个任务</p>
                             </div>
-                            
-                            <div style="background: white; border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
-                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
-                                    <div>
-                                        <h4 style="font-size: 18px; font-weight: 700; color: #1e293b; margin-bottom: 8px;">订单详情</h4>
-                                        <div style="display: flex; gap: 24px; font-size: 14px; color: #64748b;">
-                                            <span><strong style="color: #1e293b;">订单ID:</strong> O20260518001</span>
-                                            <span><strong style="color: #1e293b;">航班号:</strong> GJ 8652</span>
-                                            <span><strong style="color: #1e293b;">航司:</strong> 南方航空</span>
-                                            <span><strong style="color: #1e293b;">机型:</strong> B738</span>
+
+                            <div class="bg-white rounded-lg shadow-sm border border-border-gray p-4 mb-6">
+                                <div class="flex flex-wrap gap-4">
+                                    <div class="flex-1 min-w-[250px]">
+                                        <div class="relative">
+                                            <input type="text" id="taskSearchInput" placeholder="搜索任务ID、车辆ID、订单号..." class="w-full border border-border-gray rounded px-4 py-2 pr-10 focus:outline-none focus:border-primary transition-colors">
+                                            <button class="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-primary transition-colors" onclick="searchTasks()">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                                </svg>
+                                            </button>
                                         </div>
                                     </div>
-                                    <span style="background: #3b82f6; color: white; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 600;">进行中</span>
-                                </div>
-                                
-                                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 16px;">
-                                    <div style="padding: 16px; background: #f8fafc; border-radius: 12px;">
-                                        <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">进/出港</div>
-                                        <div style="font-size: 16px; font-weight: 700; color: #1e293b;">出港</div>
+                                    <div class="w-48">
+                                        <select class="w-full border border-border-gray rounded px-4 py-2 focus:outline-none focus:border-primary transition-colors bg-white">
+                                            <option>全部状态</option>
+                                            <option>待接单</option>
+                                            <option>已接单</option>
+                                            <option>配送中</option>
+                                            <option>已完成</option>
+                                        </select>
                                     </div>
-                                    <div style="padding: 16px; background: #f8fafc; border-radius: 12px;">
-                                        <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">机位</div>
-                                        <div style="font-size: 16px; font-weight: 700; color: #1e293b;">239</div>
-                                    </div>
-                                    <div style="padding: 16px; background: #f8fafc; border-radius: 12px;">
-                                        <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">跑道</div>
-                                        <div style="font-size: 16px; font-weight: 700; color: #1e293b;">26R</div>
-                                    </div>
-                                    <div style="padding: 16px; background: #f8fafc; border-radius: 12px;">
-                                        <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">航段</div>
-                                        <div style="font-size: 16px; font-weight: 700; color: #1e293b;">URC</div>
-                                    </div>
-                                </div>
-                                
-                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
-                                    <div style="padding: 16px; background: #f8fafc; border-radius: 12px;">
-                                        <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">计划起飞</div>
-                                        <div style="font-size: 16px; font-weight: 700; color: #1e293b;">15:25</div>
-                                    </div>
-                                    <div style="padding: 16px; background: #f8fafc; border-radius: 12px;">
-                                        <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">实际起飞</div>
-                                        <div style="font-size: 16px; font-weight: 700; color: #22c55e;">15:33</div>
-                                    </div>
-                                    <div style="padding: 16px; background: #f8fafc; border-radius: 12px;">
-                                        <div style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">COBT</div>
-                                        <div style="font-size: 16px; font-weight: 700; color: #1e293b;">15:03</div>
+                                    <div class="w-48">
+                                        <select class="w-full border border-border-gray rounded px-4 py-2 focus:outline-none focus:border-primary transition-colors bg-white">
+                                            <option>全部订单</option>
+                                            <option>O20260518001</option>
+                                            <option>O20260518002</option>
+                                            <option>O20260518003</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <h4 style="font-size: 18px; font-weight: 700; color: #1e293b; margin-bottom: 16px;">任务列表（3辆行李车）</h4>
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>任务ID</th>
-                                        <th>车辆ID</th>
-                                        <th>状态</th>
-                                        <th>处理人员</th>
-                                        <th>旅客人数</th>
-                                        <th>行李件数</th>
-                                        <th>开货舱门时间</th>
-                                        <th>操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr style="cursor: pointer;" onclick="showTaskDetail()">
-                                        <td>T001</td>
-                                        <td>AGV-001</td>
-                                        <td><span style="color: #3b82f6; font-weight: 700;">配送中</span></td>
-                                        <td>张三</td>
-                                        <td>152</td>
-                                        <td>136</td>
-                                        <td>17:48</td>
-                                        <td>
-                                            <button class="table-btn">详情</button>
-                                        </td>
-                                    </tr>
-                                    <tr style="cursor: pointer;" onclick="showTaskDetail()">
-                                        <td>T002</td>
-                                        <td>AGV-002</td>
-                                        <td><span style="color: #3b82f6; font-weight: 700;">配送中</span></td>
-                                        <td>李四</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>
-                                            <button class="table-btn">详情</button>
-                                        </td>
-                                    </tr>
-                                    <tr style="cursor: pointer;" onclick="showTaskDetail()">
-                                        <td>T003</td>
-                                        <td>AGV-003</td>
-                                        <td><span style="color: #f59e0b; font-weight: 700;">待接单</span></td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>
-                                            <button class="table-btn">接单</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            
-                            <div style="margin-top: 24px; font-size: 15px; color: #64748b; font-weight: 600;">
-                                订单统计: <span style="color: #f59e0b;">待分配(2)</span> | <span style="color: #3b82f6;">进行中(5)</span> | <span style="color: #22c55e;">已完成(15)</span>
+
+                            <div class="bg-white rounded-lg shadow-sm border border-border-gray overflow-hidden">
+                                <div class="overflow-x-auto">
+                                    <table class="w-full">
+                                        <thead class="bg-bg-light sticky top-0">
+                                            <tr>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">任务ID</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">关联订单</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">车辆ID</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">车辆名称</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">状态</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">处理人员</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">目标位置</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">创建时间</th>
+                                                <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-border-gray">
+                                            <tr class="hover:bg-bg-light cursor-pointer transition-colors" onclick="showTaskDetailPage('T001')">
+                                                <td class="px-4 py-3 text-sm text-primary font-medium">T001</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary font-medium">O20260518001</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary font-medium">AGV-001</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">行李车1号</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary text-white">配送中</span>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">张三</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">行李转盘 #3</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">2026-05-18 09:25</td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center gap-2">
+                                                        <button onclick="event.stopPropagation(); showTaskDetailPage('T001')" class="px-3 py-1.5 text-xs font-medium text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors">详情</button>
+                                                        <button onclick="event.stopPropagation();" class="px-3 py-1.5 text-xs font-medium text-neutral border border-neutral rounded hover:bg-neutral hover:text-white transition-colors">编辑</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="hover:bg-bg-light cursor-pointer transition-colors" onclick="showTaskDetailPage('T002')">
+                                                <td class="px-4 py-3 text-sm text-primary font-medium">T002</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary font-medium">O20260518001</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary font-medium">AGV-002</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">行李车2号</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary text-white">配送中</span>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">李四</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">行李转盘 #3</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">2026-05-18 09:26</td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center gap-2">
+                                                        <button onclick="event.stopPropagation(); showTaskDetailPage('T002')" class="px-3 py-1.5 text-xs font-medium text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors">详情</button>
+                                                        <button onclick="event.stopPropagation();" class="px-3 py-1.5 text-xs font-medium text-neutral border border-neutral rounded hover:bg-neutral hover:text-white transition-colors">编辑</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="hover:bg-bg-light cursor-pointer transition-colors" onclick="showTaskDetailPage('T003')">
+                                                <td class="px-4 py-3 text-sm text-primary font-medium">T003</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary font-medium">O20260518001</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary font-medium">AGV-003</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">行李车3号</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-warning text-white">待接单</span>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-text-light">-</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">行李转盘 #3</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">2026-05-18 09:27</td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center gap-2">
+                                                        <button onclick="event.stopPropagation(); acceptTask('T003')" class="px-3 py-1.5 text-xs font-medium bg-success text-white rounded hover:bg-success/80 transition-colors">接单</button>
+                                                        <button onclick="event.stopPropagation();" class="px-3 py-1.5 text-xs font-medium text-neutral border border-neutral rounded hover:bg-neutral hover:text-white transition-colors">编辑</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="hover:bg-bg-light cursor-pointer transition-colors" onclick="showTaskDetailPage('T004')">
+                                                <td class="px-4 py-3 text-sm text-primary font-medium">T004</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary font-medium">O20260518002</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary font-medium">AGV-004</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">行李车4号</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-success text-white">已完成</span>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">王五</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">机位 A12</td>
+                                                <td class="px-4 py-3 text-sm text-text-primary">2026-05-18 10:15</td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center gap-2">
+                                                        <button onclick="event.stopPropagation(); showTaskDetailPage('T004')" class="px-3 py-1.5 text-xs font-medium text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors">详情</button>
+                                                        <button onclick="event.stopPropagation();" class="px-3 py-1.5 text-xs font-medium text-neutral border border-neutral rounded hover:bg-neutral hover:text-white transition-colors">导出</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="px-4 py-3 border-t border-border-gray flex items-center justify-between">
+                                    <p class="text-sm text-text-secondary">显示第 <span class="font-medium text-text-primary">1</span> 至 <span class="font-medium text-text-primary">4</span> 条，共 <span class="font-medium text-text-primary">15</span> 条</p>
+                                    <div class="flex items-center gap-1">
+                                        <button class="px-3 py-1.5 text-sm border border-border-gray rounded hover:bg-bg-light transition-colors text-text-secondary">上一页</button>
+                                        <button class="px-3 py-1.5 text-sm rounded bg-primary text-white font-medium">1</button>
+                                        <button class="px-3 py-1.5 text-sm border border-border-gray rounded hover:bg-bg-light transition-colors">2</button>
+                                        <button class="px-3 py-1.5 text-sm border border-border-gray rounded hover:bg-bg-light transition-colors">3</button>
+                                        <button class="px-3 py-1.5 text-sm border border-border-gray rounded hover:bg-bg-light transition-colors text-text-secondary">下一页</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="orderDetailModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 1001; overflow-y: auto;">
+                            <div style="margin: 40px auto; width: 90%; max-width: 1200px; background: white; border-radius: 12px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); overflow: hidden;">
+                                <div style="background: white; border-bottom: 1px solid #e0e0e0; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <h2 style="color: #2c3e50; font-size: 20px; font-weight: 700;">订单详情</h2>
+                                        <p style="color: #666; font-size: 14px; margin-top: 4px;" id="orderDetailTitle">O20260518001 - GJ 8652</p>
+                                    </div>
+                                    <button onclick="closeOrderDetailModal()" style="padding: 10px 20px; background: #f8f9fa; color: #666; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.3s;" onmouseenter="this.style.background='#e9ecef'">关闭</button>
+                                </div>
+
+                                <div style="padding: 24px;">
+                                    <a href="#" onclick="closeOrderDetailModal(); return false;" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: white; border: 1px solid #e0e0e0; border-radius: 8px; color: #333; text-decoration: none; font-size: 14px; margin-bottom: 24px;" onmouseenter="this.style.background='#f8f9fa'">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                                        </svg>
+                                        返回订单列表
+                                    </a>
+
+                                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;">
+                                        <div style="background: #f8f9fa; border-radius: 12px; padding: 20px;">
+                                            <div style="font-size: 12px; color: #666; margin-bottom: 8px;">航班号</div>
+                                            <div style="font-size: 18px; font-weight: 700; color: #2c3e50;">GJ 8652</div>
+                                        </div>
+                                        <div style="background: #f8f9fa; border-radius: 12px; padding: 20px;">
+                                            <div style="font-size: 12px; color: #666; margin-bottom: 8px;">航司</div>
+                                            <div style="font-size: 18px; font-weight: 700; color: #2c3e50;">南方航空</div>
+                                        </div>
+                                        <div style="background: #f8f9fa; border-radius: 12px; padding: 20px;">
+                                            <div style="font-size: 12px; color: #666; margin-bottom: 8px;">机型</div>
+                                            <div style="font-size: 18px; font-weight: 700; color: #2c3e50;">B738</div>
+                                        </div>
+                                        <div style="background: #f8f9fa; border-radius: 12px; padding: 20px;">
+                                            <div style="font-size: 12px; color: #666; margin-bottom: 8px;">机位</div>
+                                            <div style="font-size: 18px; font-weight: 700; color: #2c3e50;">239</div>
+                                        </div>
+                                    </div>
+
+                                    <div style="background: white; border: 1px solid #e0e0e0; border-radius: 12px; padding: 24px; margin-bottom: 24px;">
+                                        <h3 style="font-size: 18px; font-weight: 600; color: #2c3e50; margin-bottom: 20px;">订单信息</h3>
+                                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                                            <div>
+                                                <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">订单ID</label>
+                                                <p style="font-size: 14px; font-weight: 600; color: #333;">O20260518001</p>
+                                            </div>
+                                            <div>
+                                                <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">配送类型</label>
+                                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">行李下机</span>
+                                            </div>
+                                            <div>
+                                                <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">订单状态</label>
+                                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary text-white">进行中</span>
+                                            </div>
+                                            <div>
+                                                <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">行李件数</label>
+                                                <p style="font-size: 14px; font-weight: 600; color: #333;">136 件</p>
+                                            </div>
+                                            <div>
+                                                <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">进/出港</label>
+                                                <p style="font-size: 14px; font-weight: 600; color: #333;">出港</p>
+                                            </div>
+                                            <div>
+                                                <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">创建时间</label>
+                                                <p style="font-size: 14px; font-weight: 600; color: #333;">2026-05-18 09:25</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div style="background: white; border: 1px solid #e0e0e0; border-radius: 12px; padding: 24px;">
+                                        <h3 style="font-size: 18px; font-weight: 600; color: #2c3e50; margin-bottom: 20px;">关联任务</h3>
+                                        <div class="overflow-x-auto">
+                                            <table class="w-full">
+                                                <thead class="bg-bg-light">
+                                                    <tr>
+                                                        <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">任务ID</th>
+                                                        <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">车辆ID</th>
+                                                        <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">车辆名称</th>
+                                                        <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">状态</th>
+                                                        <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">处理人员</th>
+                                                        <th class="text-left px-4 py-3 font-semibold text-text-primary text-sm">操作</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="divide-y divide-border-gray">
+                                                    <tr>
+                                                        <td class="px-4 py-3 text-sm text-primary font-medium">T001</td>
+                                                        <td class="px-4 py-3 text-sm text-text-primary font-medium">AGV-001</td>
+                                                        <td class="px-4 py-3 text-sm text-text-primary">行李车1号</td>
+                                                        <td class="px-4 py-3">
+                                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary text-white">配送中</span>
+                                                        </td>
+                                                        <td class="px-4 py-3 text-sm text-text-primary">张三</td>
+                                                        <td class="px-4 py-3">
+                                                            <button onclick="showTaskDetailPage('T001')" class="px-3 py-1.5 text-xs font-medium text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors">详情</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="px-4 py-3 text-sm text-primary font-medium">T002</td>
+                                                        <td class="px-4 py-3 text-sm text-text-primary font-medium">AGV-002</td>
+                                                        <td class="px-4 py-3 text-sm text-text-primary">行李车2号</td>
+                                                        <td class="px-4 py-3">
+                                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary text-white">配送中</span>
+                                                        </td>
+                                                        <td class="px-4 py-3 text-sm text-text-primary">李四</td>
+                                                        <td class="px-4 py-3">
+                                                            <button onclick="showTaskDetailPage('T002')" class="px-3 py-1.5 text-xs font-medium text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors">详情</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -2307,7 +3377,7 @@
         }
 
         function showDesktopPanel(panelId) {
-            const panels = ['monitorPanel', 'vehiclePanel', 'taskPanel', 'configPanel'];
+            const panels = ['monitorPanel', 'vehiclePanel', 'orderPanel', 'taskPanel', 'configPanel'];
             const items = document.querySelectorAll('.sidebar-item');
             
             panels.forEach(panel => {
@@ -2317,6 +3387,115 @@
             
             document.getElementById(panelId + 'Panel').style.display = 'block';
             event.target.classList.add('active');
+        }
+
+        function searchOrders() {
+            const keyword = document.getElementById('orderSearchInput').value;
+            alert('搜索订单: ' + keyword);
+        }
+
+        function searchTasks() {
+            const keyword = document.getElementById('taskSearchInput').value;
+            alert('搜索任务: ' + keyword);
+        }
+
+        function createOrder() {
+            alert('创建订单功能开发中');
+        }
+
+        function createTask() {
+            alert('创建任务功能开发中');
+        }
+
+        function showOrderDetailPage(orderId) {
+            document.getElementById('orderDetailModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            document.getElementById('orderDetailTitle').textContent = orderId + ' - GJ 8652';
+        }
+
+        function closeOrderDetailModal() {
+            document.getElementById('orderDetailModal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        function acceptTask(taskId) {
+            alert('已接单任务: ' + taskId);
+        }
+
+        function searchAppVehicles() {
+            const keyword = document.getElementById('appVehicleSearch').value;
+            alert('搜索车辆: ' + keyword);
+        }
+
+        function showAppVehicleList() {
+            document.getElementById('vehicleListPage').style.display = 'block';
+            document.getElementById('vehicleDetailPage').style.display = 'none';
+        }
+
+        const appVehicleData = {
+            'AGV-001': { id: 'AGV-001', name: '行李车1号', status: '在线', statusColor: '#22c55e', statusBg: 'rgba(34, 197, 94, 0.1)', battery: '85%', task: '空闲', location: '航站楼A区' },
+            'AGV-002': { id: 'AGV-002', name: '行李车2号', status: '运输中', statusColor: '#3b82f6', statusBg: 'rgba(59, 130, 246, 0.1)', battery: '70%', task: 'MU5101 行李下机', location: '机位239' },
+            'AGV-003': { id: 'AGV-003', name: '行李车3号', status: '充电中', statusColor: '#f59e0b', statusBg: 'rgba(245, 158, 11, 0.1)', battery: '25%', task: '充电中', location: '充电站#2' },
+            'AGV-004': { id: 'AGV-004', name: '行李车4号', status: '离线', statusColor: '#ef4444', statusBg: 'rgba(239, 68, 68, 0.1)', battery: '45%', task: '待维修', location: '维修区' }
+        };
+
+        function showVehicleDetailPage(vehicleId) {
+            const vehicle = appVehicleData[vehicleId];
+            if (!vehicle) return;
+            
+            document.getElementById('appVehicleId').textContent = vehicle.id;
+            document.getElementById('appVehicleName').textContent = vehicle.name;
+            document.getElementById('appVehicleStatus').textContent = vehicle.status;
+            document.getElementById('appVehicleStatus').style.color = vehicle.statusColor;
+            document.getElementById('appVehicleStatus').style.background = vehicle.statusBg;
+            document.getElementById('appVehicleBattery').textContent = vehicle.battery;
+            document.getElementById('appVehicleTask').textContent = vehicle.task;
+            document.getElementById('appVehicleLocation').textContent = vehicle.location;
+            document.getElementById('appVehicleMapLabel').textContent = vehicle.id;
+            
+            document.getElementById('vehicleListPage').style.display = 'none';
+            document.getElementById('vehicleDetailPage').style.display = 'block';
+        }
+
+        var currentRemoveTaskId = '';
+        var currentRemoveVehicleId = '';
+
+        function showRemoveConfirmModal(taskId, vehicleId) {
+            currentRemoveTaskId = taskId;
+            currentRemoveVehicleId = vehicleId;
+            document.getElementById('removeConfirmText').textContent = '确定要从任务 ' + taskId + ' 移除车辆 ' + vehicleId + ' 吗？';
+            document.getElementById('removeConfirmModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeRemoveConfirmModal() {
+            document.getElementById('removeConfirmModal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        function confirmRemoveVehicle() {
+            alert('已从任务 ' + currentRemoveTaskId + ' 移除车辆 ' + currentRemoveVehicleId);
+            closeRemoveConfirmModal();
+        }
+
+        function showAddVehicleModal() {
+            document.getElementById('addVehicleModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAddVehicleModal() {
+            document.getElementById('addVehicleModal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        function confirmAddVehicle() {
+            var vehicle = document.getElementById('addVehicleSelect').value;
+            if (vehicle) {
+                alert('已添加车辆: ' + vehicle);
+                closeAddVehicleModal();
+            } else {
+                alert('请选择车辆');
+            }
         }
 
         function showAgvStatus() {
@@ -2335,6 +3514,94 @@
             document.getElementById('agvStatus').style.display = 'none';
             document.getElementById('agvControl').style.display = 'none';
             document.getElementById('agvDocking').style.display = 'block';
+        }
+
+        const vehicleData = {
+            'AGV-001': {
+                id: 'AGV-001',
+                name: '行李车1号',
+                model: 'AGV-C909',
+                brand: 'C909',
+                status: '空闲',
+                statusClass: 'bg-success',
+                battery: 85,
+                location: '航站楼A区',
+                currentTask: '空闲',
+                powerStatus: '放电中'
+            },
+            'AGV-002': {
+                id: 'AGV-002',
+                name: '行李车2号',
+                model: 'AGV-C909',
+                brand: 'C909',
+                status: '运输中',
+                statusClass: 'bg-primary',
+                battery: 70,
+                location: '机位239',
+                currentTask: '执行任务 #T001',
+                powerStatus: '放电中'
+            },
+            'AGV-003': {
+                id: 'AGV-003',
+                name: '行李车3号',
+                model: 'AGV-C909',
+                brand: 'C909',
+                status: '充电中',
+                statusClass: 'bg-warning',
+                battery: 25,
+                location: '充电站#2',
+                currentTask: '充电中',
+                powerStatus: '充电中'
+            },
+            'AGV-004': {
+                id: 'AGV-004',
+                name: '行李车4号',
+                model: 'AGV-C909',
+                brand: 'C909',
+                status: '故障',
+                statusClass: 'bg-error',
+                battery: 45,
+                location: '维修区',
+                currentTask: '待维修',
+                powerStatus: '断电'
+            }
+        };
+
+        function showVehicleDetail(vehicleId) {
+            const vehicle = vehicleData[vehicleId];
+            if (!vehicle) return;
+            
+            document.getElementById('vehicleDetailTitle').textContent = vehicle.id + ' - ' + vehicle.name;
+            document.getElementById('detail-vehicle-id').textContent = vehicle.id;
+            document.getElementById('detail-vehicle-name').textContent = vehicle.name;
+            document.getElementById('detail-vehicle-model').textContent = vehicle.model;
+            document.getElementById('detail-vehicle-brand').textContent = vehicle.brand;
+            
+            const statusSpan = document.getElementById('detail-vehicle-status');
+            statusSpan.textContent = vehicle.status;
+            statusSpan.className = 'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ' + vehicle.statusClass + ' text-white';
+            
+            const batteryBar = document.getElementById('detail-battery-bar');
+            batteryBar.style.width = vehicle.battery + '%';
+            batteryBar.className = 'h-full rounded-full ' + (vehicle.battery > 50 ? 'bg-success' : vehicle.battery > 20 ? 'bg-warning' : 'bg-error');
+            
+            document.getElementById('detail-battery').textContent = vehicle.battery + '%';
+            document.getElementById('detail-battery-status').textContent = vehicle.battery + '%';
+            document.getElementById('detail-current-task').textContent = vehicle.currentTask;
+            document.getElementById('detail-location').textContent = vehicle.location;
+            document.getElementById('detail-power-status').textContent = vehicle.powerStatus;
+            
+            document.getElementById('vehicleDetailModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVehicleDetailModal() {
+            document.getElementById('vehicleDetailModal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        function openAddVehicleModal() {
+            alert('添加车辆功能开发中');
         }
     </script>
 </body>
