@@ -2269,11 +2269,6 @@
                             
                             <div style="background: white; border-radius: 20px; padding: 0; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
                                 <div style="display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background 0.3s;">
-                                    <span style="font-size: 22px; margin-right: 16px;">📊</span>
-                                    <span style="flex: 1; color: #1e293b; font-weight: 600;">我的统计</span>
-                                    <span style="color: #94a3b8;">→</span>
-                                </div>
-                                <div style="display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background 0.3s;">
                                     <span style="font-size: 22px; margin-right: 16px;">✅</span>
                                     <span style="flex: 1; color: #1e293b; font-weight: 600;">已完成任务</span>
                                     <span style="color: #22c55e; font-weight: 700;">128</span>
@@ -2291,19 +2286,9 @@
                                     <span style="flex: 1; color: #1e293b; font-weight: 600;">通知设置</span>
                                     <span style="color: #94a3b8;">→</span>
                                 </div>
-                                <div style="display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background 0.3s;">
-                                    <span style="font-size: 22px; margin-right: 16px;">🌙</span>
-                                    <span style="flex: 1; color: #1e293b; font-weight: 600;">深色模式</span>
-                                    <span style="color: #94a3b8;">→</span>
-                                </div>
-                                <div style="display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background 0.3s;">
+                                <div style="display: flex; align-items: center; padding: 16px 20px; cursor: pointer; transition: background 0.3s;">
                                     <span style="font-size: 22px; margin-right: 16px;">🔒</span>
                                     <span style="flex: 1; color: #1e293b; font-weight: 600;">修改密码</span>
-                                    <span style="color: #94a3b8;">→</span>
-                                </div>
-                                <div style="display: flex; align-items: center; padding: 16px 20px; cursor: pointer; transition: background 0.3s;">
-                                    <span style="font-size: 22px; margin-right: 16px;">❓</span>
-                                    <span style="flex: 1; color: #1e293b; font-weight: 600;">帮助中心</span>
                                     <span style="color: #94a3b8;">→</span>
                                 </div>
                             </div>
@@ -2365,7 +2350,6 @@
                             <div class="sidebar-item" onclick="showDesktopPanel('vehicle')">车辆管理</div>
                             <div class="sidebar-item" onclick="showDesktopPanel('order')">订单管理</div>
                             <div class="sidebar-item" onclick="showDesktopPanel('task')">任务列表</div>
-                            <div class="sidebar-item" onclick="showDesktopPanel('config')">系统配置</div>
                         </div>
                         <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
                             <p style="color: rgba(255, 255, 255, 0.5); font-size: 12px;">版本 1.0.0</p>
@@ -3061,45 +3045,7 @@
                             </div>
                         </div>
 
-                        <div id="configPanel" style="display: none;">
-                            <div style="display: flex; gap: 12px; margin-bottom: 24px;">
-                                <button class="filter-btn" style="padding: 12px 24px; font-size: 14px; background: #3b82f6; color: white; border-color: #3b82f6;">路径规划</button>
-                                <button class="filter-btn" style="padding: 12px 24px; font-size: 14px;">安全参数</button>
-                                <button class="filter-btn" style="padding: 12px 24px; font-size: 14px;">用户管理</button>
-                            </div>
-                            
-                            <div style="background: white; border-radius: 20px; padding: 32px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
-                                <h4 style="color: #1e293b; font-size: 18px; font-weight: 700; margin-bottom: 24px;">路径规划设置</h4>
-                                <div style="margin-bottom: 16px;">
-                                    <label style="color: #64748b; font-size: 15px; font-weight: 600;">自动规划: </label>
-                                    <span style="color: #22c55e; font-weight: 700;">开启</span>
-                                </div>
-                                <div style="margin-bottom: 16px;">
-                                    <label style="color: #64748b; font-size: 15px; font-weight: 600;">避障优先级: </label>
-                                    <span style="color: #1e293b; font-weight: 700;">行人 > 车辆 > 障碍物</span>
-                                </div>
-                                <div style="margin-bottom: 24px;">
-                                    <label style="color: #64748b; font-size: 15px; font-weight: 600;">最大速度: </label>
-                                    <span style="color: #1e293b; font-weight: 700;">20 km/h</span>
-                                </div>
-                                
-                                <h4 style="color: #1e293b; font-size: 18px; font-weight: 700; margin-bottom: 24px;">对接安全参数</h4>
-                                <div style="margin-bottom: 16px;">
-                                    <label style="color: #64748b; font-size: 15px; font-weight: 600;">对接距离阈值: </label>
-                                    <span style="color: #1e293b; font-weight: 700;">50cm</span>
-                                </div>
-                                <div style="margin-bottom: 16px;">
-                                    <label style="color: #64748b; font-size: 15px; font-weight: 600;">缓冲距离: </label>
-                                    <span style="color: #1e293b; font-weight: 700;">30cm</span>
-                                </div>
-                                <div style="margin-bottom: 24px;">
-                                    <label style="color: #64748b; font-size: 15px; font-weight: 600;">接近减速距离: </label>
-                                    <span style="color: #1e293b; font-weight: 700;">5m</span>
-                                </div>
-                                
-                                <button class="btn-primary" style="padding: 16px 48px;">保存配置</button>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -3110,7 +3056,7 @@
             <div class="ipad-container">
                 <div class="ipad-screen">
                     <div class="ipad-header">
-                        <h2>AGV-002 车载控制屏</h2>
+                        <h2>AGV-002 车载任务屏</h2>
                     </div>
                     
                     <div class="ipad-body" id="agvBody">
@@ -3136,76 +3082,83 @@
                                 <div style="font-size: 16px; color: #64748b; margin-top: 8px; font-weight: 600;">预计到达: 09:35</div>
                             </div>
                             
-                            <div style="display: flex; gap: 20px;">
-                                <button class="btn-primary" onclick="showAgvControl()" style="padding: 20px 48px; font-size: 18px;">手动控制</button>
-                                <button class="btn-secondary" onclick="showAgvDocking()" style="padding: 20px 48px; font-size: 18px;">对接辅助</button>
-                            </div>
-                        </div>
-
-                        <div id="agvControl" style="display: none;">
-                            <button style="color: #3b82f6; font-size: 18px; margin-bottom: 24px; cursor: pointer; font-weight: 600; background: none; border: none;" onclick="showAgvStatus()">← 返回</button>
-                            
-                            <div class="control-panel">
-                                <div class="control-title">手动控制</div>
-                                
-                                <div class="direction-pad">
-                                    <button class="dir-btn">↑</button>
-                                    <div class="dir-btn-row">
-                                        <button class="dir-btn">←</button>
-                                        <button class="dir-btn" style="background: #cbd5e1;">○</button>
-                                        <button class="dir-btn">→</button>
-                                    </div>
-                                    <button class="dir-btn">↓</button>
+                            <div style="background: white; border-radius: 20px; padding: 32px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
+                                <h4 style="color: #1e293b; font-size: 18px; font-weight: 700; margin-bottom: 20px;">任务详情</h4>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                                    <span style="color: #64748b;">航班号</span>
+                                    <span style="color: #1e293b; font-weight: 600;">MU5101</span>
                                 </div>
-                                
-                                <div class="action-buttons">
-                                    <button class="action-btn">开灯</button>
-                                    <button class="action-btn">鸣笛</button>
-                                    <button class="action-btn">车门</button>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                                    <span style="color: #64748b;">航司</span>
+                                    <span style="color: #1e293b; font-weight: 600;">东方航空</span>
                                 </div>
-                                
-                                <div style="text-align: center;">
-                                    <button class="emergency-btn">紧急停止</button>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                                    <span style="color: #64748b;">机型</span>
+                                    <span style="color: #1e293b; font-weight: 600;">A320</span>
                                 </div>
-                                
-                                <div style="text-align: center; font-size: 14px; color: #64748b; margin-top: 16px; font-weight: 600;">
-                                    提示: 急停按钮为物理+虚拟双保险
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                                    <span style="color: #64748b;">机位</span>
+                                    <span style="color: #1e293b; font-weight: 600;">A15</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span style="color: #64748b;">行李件数</span>
+                                    <span style="color: #1e293b; font-weight: 600;">45件</span>
                                 </div>
                             </div>
-                        </div>
-
-                        <div id="agvDocking" style="display: none;">
-                            <button style="color: #3b82f6; font-size: 18px; margin-bottom: 24px; cursor: pointer; font-weight: 600; background: none; border: none;" onclick="showAgvStatus()">← 返回</button>
                             
-                            <div class="docking-view">
-                                <div class="camera-feed">
-                                    [视觉识别画面] - 货舱门识别中...
-                                </div>
-                                
-                                <div class="docking-info">
-                                    <div class="docking-distance">距离: 0.8m</div>
-                                    <div class="docking-status">
-                                        <span class="status-dot working"></span>
-                                        <span class="status-text">对接中</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="fine-adjust">
-                                    <div class="fine-adjust-title">微调控制</div>
-                                    <div class="direction-pad" style="margin-bottom: 0;">
-                                        <button class="dir-btn" style="width: 70px; height: 70px; font-size: 28px;">↑</button>
-                                        <div class="dir-btn-row">
-                                            <button class="dir-btn" style="width: 70px; height: 70px; font-size: 28px;">←</button>
-                                            <button class="dir-btn" style="width: 70px; height: 70px; font-size: 28px; background: #cbd5e1;">○</button>
-                                            <button class="dir-btn" style="width: 70px; height: 70px; font-size: 28px;">→</button>
+                            <div style="background: white; border-radius: 20px; padding: 32px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
+                                <h4 style="color: #1e293b; font-size: 18px; font-weight: 700; margin-bottom: 20px;">任务状态流转</h4>
+                                <div style="position: relative;">
+                                    <div style="position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: #e2e8f0;"></div>
+                                    
+                                    <div style="display: flex; align-items: flex-start; margin-bottom: 20px; position: relative;">
+                                        <div style="width: 20px; height: 20px; border-radius: 50%; background: #22c55e; margin-right: 16px; z-index: 1;"></div>
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; color: #1e293b;">任务创建</div>
+                                            <div style="color: #94a3b8; font-size: 14px;">09:00:00</div>
                                         </div>
-                                        <button class="dir-btn" style="width: 70px; height: 70px; font-size: 28px;">↓</button>
+                                    </div>
+                                    
+                                    <div style="display: flex; align-items: flex-start; margin-bottom: 20px; position: relative;">
+                                        <div style="width: 20px; height: 20px; border-radius: 50%; background: #22c55e; margin-right: 16px; z-index: 1;"></div>
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; color: #1e293b;">AGV接单</div>
+                                            <div style="color: #94a3b8; font-size: 14px;">09:05:32</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style="display: flex; align-items: flex-start; margin-bottom: 20px; position: relative;">
+                                        <div style="width: 20px; height: 20px; border-radius: 50%; background: #22c55e; margin-right: 16px; z-index: 1;"></div>
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; color: #1e293b;">到达机下</div>
+                                            <div style="color: #94a3b8; font-size: 14px;">09:12:18</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style="display: flex; align-items: flex-start; margin-bottom: 20px; position: relative;">
+                                        <div style="width: 20px; height: 20px; border-radius: 50%; background: #f59e0b; margin-right: 16px; z-index: 1;"></div>
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; color: #1e293b;">装载行李中</div>
+                                            <div style="color: #94a3b8; font-size: 14px;">09:15:45</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style="display: flex; align-items: flex-start; position: relative;">
+                                        <div style="width: 20px; height: 20px; border-radius: 50%; background: #cbd5e1; margin-right: 16px; z-index: 1;"></div>
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; color: #94a3b8;">运输中</div>
+                                            <div style="color: #94a3b8; font-size: 14px;">待执行</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style="display: flex; align-items: flex-start; position: relative;">
+                                        <div style="width: 20px; height: 20px; border-radius: 50%; background: #cbd5e1; margin-right: 16px; z-index: 1;"></div>
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; color: #94a3b8;">到达转盘</div>
+                                            <div style="color: #94a3b8; font-size: 14px;">待执行</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <div style="background: rgba(245, 158, 11, 0.1); border: 2px solid #f59e0b; border-radius: 16px; padding: 24px; text-align: center;">
-                                <span style="color: #f59e0b; font-size: 18px; font-weight: 700;">⚠️ 接近飞机，自动减速中...</span>
                             </div>
                         </div>
                     </div>
