@@ -3055,107 +3055,109 @@
         <div id="agv-tab" class="tab-content">
             <div class="ipad-container">
                 <div class="ipad-screen">
-                    <div class="ipad-header">
-                        <h2>AGV-002 车载任务屏</h2>
+                    <div class="ipad-header" style="padding: 12px 20px;">
+                        <h2 style="font-size: 18px; margin: 0;">AGV-002 车载任务屏</h2>
                     </div>
                     
-                    <div class="ipad-body" id="agvBody">
-                        <div id="agvStatus">
-                            <div class="agv-status-cards">
-                                <div class="agv-card">
-                                    <div class="agv-card-label">当前任务</div>
-                                    <div class="agv-card-value">MU5101</div>
+                    <div class="ipad-body" id="agvBody" style="padding: 16px; overflow: hidden; height: calc(100% - 56px); display: flex; flex-direction: column;">
+                        <div id="agvStatus" style="flex: 1; display: flex; flex-direction: column;">
+                            <div class="agv-status-cards" style="flex: 0 0 auto; margin-bottom: 12px;">
+                                <div class="agv-card" style="flex: 1;">
+                                    <div class="agv-card-label" style="font-size: 11px;">当前任务</div>
+                                    <div class="agv-card-value" style="font-size: 16px;">MU5101</div>
                                 </div>
-                                <div class="agv-card">
-                                    <div class="agv-card-label">电量</div>
-                                    <div class="agv-card-value success">75%</div>
+                                <div class="agv-card" style="flex: 1;">
+                                    <div class="agv-card-label" style="font-size: 11px;">电量</div>
+                                    <div class="agv-card-value success" style="font-size: 16px;">75%</div>
                                 </div>
-                                <div class="agv-card">
-                                    <div class="agv-card-label">速度</div>
-                                    <div class="agv-card-value">15 km/h</div>
-                                </div>
-                            </div>
-                            
-                            <div style="background: white; border-radius: 20px; padding: 32px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
-                                <div style="font-size: 16px; color: #64748b; margin-bottom: 8px; font-weight: 600;">目标位置</div>
-                                <div style="font-size: 24px; font-weight: 700; color: #1e293b;">行李转盘 #3</div>
-                                <div style="font-size: 16px; color: #64748b; margin-top: 8px; font-weight: 600;">预计到达: 09:35</div>
-                            </div>
-                            
-                            <div style="background: white; border-radius: 20px; padding: 32px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
-                                <h4 style="color: #1e293b; font-size: 18px; font-weight: 700; margin-bottom: 20px;">任务详情</h4>
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-                                    <span style="color: #64748b;">航班号</span>
-                                    <span style="color: #1e293b; font-weight: 600;">MU5101</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-                                    <span style="color: #64748b;">航司</span>
-                                    <span style="color: #1e293b; font-weight: 600;">东方航空</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-                                    <span style="color: #64748b;">机型</span>
-                                    <span style="color: #1e293b; font-weight: 600;">A320</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-                                    <span style="color: #64748b;">机位</span>
-                                    <span style="color: #1e293b; font-weight: 600;">A15</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between;">
-                                    <span style="color: #64748b;">行李件数</span>
-                                    <span style="color: #1e293b; font-weight: 600;">45件</span>
+                                <div class="agv-card" style="flex: 1;">
+                                    <div class="agv-card-label" style="font-size: 11px;">速度</div>
+                                    <div class="agv-card-value" style="font-size: 16px;">15 km/h</div>
                                 </div>
                             </div>
                             
-                            <div style="background: white; border-radius: 20px; padding: 32px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);">
-                                <h4 style="color: #1e293b; font-size: 18px; font-weight: 700; margin-bottom: 20px;">任务状态流转</h4>
-                                <div style="position: relative;">
-                                    <div style="position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: #e2e8f0;"></div>
+                            <div style="display: flex; gap: 12px; flex: 1; min-height: 0;">
+                                <div style="background: white; border-radius: 12px; padding: 16px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06); flex: 1; display: flex; flex-direction: column;">
+                                    <div style="font-size: 12px; color: #64748b; margin-bottom: 4px; font-weight: 600;">目标位置</div>
+                                    <div style="font-size: 18px; font-weight: 700; color: #1e293b;">行李转盘 #3</div>
+                                    <div style="font-size: 12px; color: #64748b; margin-top: 4px; font-weight: 600;">预计到达: 09:35</div>
                                     
-                                    <div style="display: flex; align-items: flex-start; margin-bottom: 20px; position: relative;">
-                                        <div style="width: 20px; height: 20px; border-radius: 50%; background: #22c55e; margin-right: 16px; z-index: 1;"></div>
-                                        <div style="flex: 1;">
-                                            <div style="font-weight: 600; color: #1e293b;">任务创建</div>
-                                            <div style="color: #94a3b8; font-size: 14px;">09:00:00</div>
+                                    <div style="border-top: 1px solid #f1f5f9; margin-top: 12px; padding-top: 12px;">
+                                        <h4 style="color: #1e293b; font-size: 13px; font-weight: 700; margin-bottom: 10px;">任务详情</h4>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px;">
+                                            <span style="color: #64748b;">航班号</span>
+                                            <span style="color: #1e293b; font-weight: 600;">MU5101</span>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px;">
+                                            <span style="color: #64748b;">航司</span>
+                                            <span style="color: #1e293b; font-weight: 600;">东方航空</span>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px;">
+                                            <span style="color: #64748b;">机型</span>
+                                            <span style="color: #1e293b; font-weight: 600;">A320</span>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px;">
+                                            <span style="color: #64748b;">机位</span>
+                                            <span style="color: #1e293b; font-weight: 600;">A15</span>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between; font-size: 12px;">
+                                            <span style="color: #64748b;">行李件数</span>
+                                            <span style="color: #1e293b; font-weight: 600;">45件</span>
                                         </div>
                                     </div>
-                                    
-                                    <div style="display: flex; align-items: flex-start; margin-bottom: 20px; position: relative;">
-                                        <div style="width: 20px; height: 20px; border-radius: 50%; background: #22c55e; margin-right: 16px; z-index: 1;"></div>
-                                        <div style="flex: 1;">
-                                            <div style="font-weight: 600; color: #1e293b;">AGV接单</div>
-                                            <div style="color: #94a3b8; font-size: 14px;">09:05:32</div>
+                                </div>
+                                
+                                <div style="background: white; border-radius: 12px; padding: 16px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06); flex: 1; overflow-y: auto;">
+                                    <h4 style="color: #1e293b; font-size: 13px; font-weight: 700; margin-bottom: 12px;">任务状态流转</h4>
+                                    <div style="position: relative; padding-left: 8px;">
+                                        <div style="position: absolute; left: 4px; top: 0; bottom: 0; width: 2px; background: #e2e8f0;"></div>
+                                        
+                                        <div style="display: flex; align-items: flex-start; margin-bottom: 10px; position: relative; padding-left: 16px;">
+                                            <div style="width: 12px; height: 12px; border-radius: 50%; background: #22c55e; position: absolute; left: 0; top: 2px;"></div>
+                                            <div>
+                                                <div style="font-weight: 600; color: #1e293b; font-size: 11px;">任务创建</div>
+                                                <div style="color: #94a3b8; font-size: 10px;">09:00:00</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    
-                                    <div style="display: flex; align-items: flex-start; margin-bottom: 20px; position: relative;">
-                                        <div style="width: 20px; height: 20px; border-radius: 50%; background: #22c55e; margin-right: 16px; z-index: 1;"></div>
-                                        <div style="flex: 1;">
-                                            <div style="font-weight: 600; color: #1e293b;">到达机下</div>
-                                            <div style="color: #94a3b8; font-size: 14px;">09:12:18</div>
+                                        
+                                        <div style="display: flex; align-items: flex-start; margin-bottom: 10px; position: relative; padding-left: 16px;">
+                                            <div style="width: 12px; height: 12px; border-radius: 50%; background: #22c55e; position: absolute; left: 0; top: 2px;"></div>
+                                            <div>
+                                                <div style="font-weight: 600; color: #1e293b; font-size: 11px;">AGV接单</div>
+                                                <div style="color: #94a3b8; font-size: 10px;">09:05:32</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    
-                                    <div style="display: flex; align-items: flex-start; margin-bottom: 20px; position: relative;">
-                                        <div style="width: 20px; height: 20px; border-radius: 50%; background: #f59e0b; margin-right: 16px; z-index: 1;"></div>
-                                        <div style="flex: 1;">
-                                            <div style="font-weight: 600; color: #1e293b;">装载行李中</div>
-                                            <div style="color: #94a3b8; font-size: 14px;">09:15:45</div>
+                                        
+                                        <div style="display: flex; align-items: flex-start; margin-bottom: 10px; position: relative; padding-left: 16px;">
+                                            <div style="width: 12px; height: 12px; border-radius: 50%; background: #22c55e; position: absolute; left: 0; top: 2px;"></div>
+                                            <div>
+                                                <div style="font-weight: 600; color: #1e293b; font-size: 11px;">到达机下</div>
+                                                <div style="color: #94a3b8; font-size: 10px;">09:12:18</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    
-                                    <div style="display: flex; align-items: flex-start; position: relative;">
-                                        <div style="width: 20px; height: 20px; border-radius: 50%; background: #cbd5e1; margin-right: 16px; z-index: 1;"></div>
-                                        <div style="flex: 1;">
-                                            <div style="font-weight: 600; color: #94a3b8;">运输中</div>
-                                            <div style="color: #94a3b8; font-size: 14px;">待执行</div>
+                                        
+                                        <div style="display: flex; align-items: flex-start; margin-bottom: 10px; position: relative; padding-left: 16px;">
+                                            <div style="width: 12px; height: 12px; border-radius: 50%; background: #f59e0b; position: absolute; left: 0; top: 2px;"></div>
+                                            <div>
+                                                <div style="font-weight: 600; color: #1e293b; font-size: 11px;">装载行李中</div>
+                                                <div style="color: #94a3b8; font-size: 10px;">09:15:45</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    
-                                    <div style="display: flex; align-items: flex-start; position: relative;">
-                                        <div style="width: 20px; height: 20px; border-radius: 50%; background: #cbd5e1; margin-right: 16px; z-index: 1;"></div>
-                                        <div style="flex: 1;">
-                                            <div style="font-weight: 600; color: #94a3b8;">到达转盘</div>
-                                            <div style="color: #94a3b8; font-size: 14px;">待执行</div>
+                                        
+                                        <div style="display: flex; align-items: flex-start; margin-bottom: 10px; position: relative; padding-left: 16px;">
+                                            <div style="width: 12px; height: 12px; border-radius: 50%; background: #cbd5e1; position: absolute; left: 0; top: 2px;"></div>
+                                            <div>
+                                                <div style="font-weight: 600; color: #94a3b8; font-size: 11px;">运输中</div>
+                                                <div style="color: #94a3b8; font-size: 10px;">待执行</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div style="display: flex; align-items: flex-start; position: relative; padding-left: 16px;">
+                                            <div style="width: 12px; height: 12px; border-radius: 50%; background: #cbd5e1; position: absolute; left: 0; top: 2px;"></div>
+                                            <div>
+                                                <div style="font-weight: 600; color: #94a3b8; font-size: 11px;">到达转盘</div>
+                                                <div style="color: #94a3b8; font-size: 10px;">待执行</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
