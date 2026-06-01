@@ -830,9 +830,9 @@
         }
 
         .sidebar-item {
-            padding: 12px 20px 12px 50px;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
+            padding: 14px 20px 14px 50px;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 15px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s;
@@ -2360,9 +2360,6 @@
                 
                 <div class="desktop-body">
                     <div class="desktop-sidebar">
-                        <div style="padding: 24px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                            <div style="color: white; font-size: 20px; font-weight: 700; line-height: 1.4; letter-spacing: 1px;">C909无人行李车调度中心</div>
-                        </div>
                         <div style="padding: 8px 0;">
                             <div class="sidebar-item active" onclick="showDesktopPanel('monitor')">大屏监控</div>
                             <div class="sidebar-item" onclick="showDesktopPanel('vehicle')">车辆管理</div>
@@ -2393,21 +2390,32 @@
                             </div>
                             
                             <div class="stats-row">
-                                <div class="stat-card">
+                                <div class="stat-card" style="cursor: pointer;" onclick="showStatDetail('vehicle')">
                                     <div class="stat-value">8/10</div>
                                     <div class="stat-label">在线车辆</div>
                                 </div>
-                                <div class="stat-card">
+                                <div class="stat-card" style="cursor: pointer;" onclick="showStatDetail('task')">
                                     <div class="stat-value">12</div>
                                     <div class="stat-label">运行任务</div>
                                 </div>
-                                <div class="stat-card">
+                                <div class="stat-card" style="cursor: pointer;" onclick="showStatDetail('alert')">
                                     <div class="stat-value" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">2</div>
                                     <div class="stat-label">异常报警</div>
                                 </div>
-                                <div class="stat-card">
+                                <div class="stat-card" style="cursor: pointer;" onclick="showStatDetail('completed')">
                                     <div class="stat-value">156</div>
                                     <div class="stat-label">今日完成</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="statDetailModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 1001; align-items: center; justify-content: center;">
+                            <div style="width: 90%; max-width: 500px; background: white; border-radius: 16px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); overflow: hidden;">
+                                <div style="background: white; border-bottom: 1px solid #e0e0e0; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center;">
+                                    <h2 style="color: #2c3e50; font-size: 20px; font-weight: 700;" id="statDetailTitle">详情</h2>
+                                    <button onclick="closeStatDetailModal()" style="padding: 8px 16px; background: #f8f9fa; color: #666; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.3s;" onmouseenter="this.style.background='#e9ecef'">关闭</button>
+                                </div>
+                                <div style="padding: 24px;" id="statDetailContent">
                                 </div>
                             </div>
                         </div>
@@ -3405,6 +3413,40 @@
 
         function createTask() {
             alert('创建任务功能开发中');
+        }
+
+        function showStatDetail(type) {
+            var title = '';
+            var content = '';
+            
+            switch(type) {
+                case 'vehicle':
+                    title = '在线车辆详情';
+                    content = '<p style="color: #666; margin-bottom: 8px;">在线: 8辆</p><p style="color: #666; margin-bottom: 8px;">离线: 2辆</p><p style="color: #666;">空闲: 3辆 | 运输中: 5辆 | 充电中: 1辆</p>';
+                    break;
+                case 'task':
+                    title = '运行任务详情';
+                    content = '<p style="color: #666; margin-bottom: 8px;">进行中: 8个</p><p style="color: #666; margin-bottom: 8px;">待接单: 3个</p><p style="color: #666;">已完成: 156个</p>';
+                    break;
+                case 'alert':
+                    title = '异常报警详情';
+                    content = '<p style="color: #ef4444; margin-bottom: 8px;">⚠️ AGV-001: 电量低于20%</p><p style="color: #ef4444;">⚠️ AGV-003: 路径受阻</p>';
+                    break;
+                case 'completed':
+                    title = '今日完成详情';
+                    content = '<p style="color: #666; margin-bottom: 8px;">行李下机: 89次</p><p style="color: #666; margin-bottom: 8px;">行李上机: 52次</p><p style="color: #666;">行李转运: 15次</p>';
+                    break;
+            }
+            
+            document.getElementById('statDetailTitle').textContent = title;
+            document.getElementById('statDetailContent').innerHTML = content;
+            document.getElementById('statDetailModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeStatDetailModal() {
+            document.getElementById('statDetailModal').style.display = 'none';
+            document.body.style.overflow = '';
         }
 
         function showOrderDetailPage(orderId) {
