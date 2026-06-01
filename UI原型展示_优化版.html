@@ -3338,11 +3338,14 @@
         }
 
         function showDesktopPanel(panelId) {
-            const panels = ['monitorPanel', 'vehiclePanel', 'orderPanel', 'taskPanel', 'configPanel'];
+            const panels = ['monitorPanel', 'vehiclePanel', 'orderPanel', 'taskPanel'];
             const items = document.querySelectorAll('.sidebar-item');
             
             panels.forEach(panel => {
-                document.getElementById(panel).style.display = 'none';
+                const element = document.getElementById(panel);
+                if (element) {
+                    element.style.display = 'none';
+                }
             });
             items.forEach(item => item.classList.remove('active'));
             
